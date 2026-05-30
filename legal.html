@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>מסמכים משפטיים — מאי מלכא</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:    #04091a;
+      --bg2:   #060d20;
+      --sf:    rgba(10,22,50,0.82);
+      --sf2:   #0c1a3a;
+      --bdr:   rgba(56,115,230,0.18);
+      --bdrh:  rgba(56,115,230,0.5);
+      --blue:  #2563EB;
+      --bluel: #60A5FA;
+      --cyan:  #06B6D4;
+      --cyanl: #67E8F9;
+      --text:  #E8F3FF;
+      --muted: #7A9BC4;
+      --dim:   #364F72;
+      --g2:    linear-gradient(135deg,#2563EB,#06B6D4);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Heebo', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      direction: rtl;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.7;
+    }
+
+    /* ─── NAV ──────────────────────────────────────────────── */
+    .legal-nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 0.75rem;
+      padding: 1rem 2rem;
+      background: rgba(4,9,26,0.97);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--bdr);
+    }
+
+    .legal-nav-brand {
+      display: block;
+      text-decoration: none;
+    }
+    .legal-nav-brand img {
+      height: 50px;
+      width: auto;
+      display: block;
+    }
+
+    .legal-nav-links {
+      display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap;
+    }
+
+    .legal-nav-links a {
+      font-size: 0.8rem; color: var(--muted);
+      text-decoration: none; font-weight: 500;
+      padding: 0.35rem 0.9rem; border-radius: 50px;
+      border: 1px solid transparent;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+      white-space: nowrap;
+    }
+    .legal-nav-links a:hover {
+      color: var(--bluel);
+      border-color: var(--bdr);
+      background: rgba(37,99,235,0.06);
+    }
+
+    .legal-nav-back {
+      font-size: 0.82rem; color: var(--dim);
+      text-decoration: none; font-weight: 500;
+      transition: color 0.2s; white-space: nowrap;
+    }
+    .legal-nav-back:hover { color: var(--muted); }
+
+    /* ─── PAGE HEADER ──────────────────────────────────────── */
+    .legal-page-header {
+      max-width: 820px; margin: 0 auto;
+      padding: 3.5rem 2rem 0;
+    }
+
+    .legal-page-header h1 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 900; line-height: 1.15;
+      margin-bottom: 0.5rem;
+    }
+
+    .legal-page-header h1 span {
+      background: var(--g2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .legal-page-header p {
+      font-size: 0.85rem; color: var(--dim);
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--bdr);
+      margin-bottom: 0;
+    }
+
+    /* Quick-jump buttons */
+    .legal-toc {
+      max-width: 820px; margin: 0 auto;
+      padding: 1.5rem 2rem 0;
+      display: flex; gap: 0.75rem; flex-wrap: wrap;
+    }
+
+    .toc-btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: var(--sf); border: 1px solid var(--bdr);
+      border-radius: 50px; padding: 0.5rem 1.1rem;
+      font-size: 0.82rem; color: var(--muted); font-weight: 600;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .toc-btn:hover {
+      border-color: var(--bdrh);
+      color: var(--bluel);
+      background: rgba(37,99,235,0.08);
+    }
+
+    /* ─── LEGAL SECTIONS ───────────────────────────────────── */
+    .legal-wrap {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 0 2rem 6rem;
+    }
+
+    .legal-section {
+      padding-top: 4rem;
+      padding-bottom: 1rem;
+    }
+
+    .legal-section-divider {
+      border: none;
+      border-top: 1px solid var(--bdr);
+      margin-top: 3.5rem;
+    }
+
+    .legal-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      border-radius: 50px; padding: 0.3rem 1rem;
+      font-size: 0.78rem; font-weight: 500;
+      margin-bottom: 1.2rem;
+    }
+
+    .badge-access {
+      background: rgba(6,182,212,0.1);
+      border: 1px solid rgba(6,182,212,0.25);
+      color: var(--cyanl);
+    }
+
+    .badge-privacy {
+      background: rgba(37,99,235,0.1);
+      border: 1px solid rgba(37,99,235,0.25);
+      color: var(--bluel);
+    }
+
+    .badge-terms {
+      background: rgba(37,99,235,0.08);
+      border: 1px solid rgba(56,115,230,0.2);
+      color: var(--bluel);
+    }
+
+    .badge-disclaimer {
+      background: rgba(6,182,212,0.06);
+      border: 1px solid rgba(6,182,212,0.22);
+      color: var(--cyanl);
+    }
+
+    .legal-section-title {
+      font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+      font-weight: 900; line-height: 1.15;
+      margin-bottom: 0.4rem;
+    }
+
+    .legal-section-title span {
+      background: var(--g2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .legal-meta {
+      font-size: 0.8rem;
+      color: var(--dim);
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--bdr);
+    }
+
+    h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--bluel);
+      margin-top: 2rem;
+      margin-bottom: 0.7rem;
+    }
+
+    p, li {
+      font-size: 0.93rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    ul, ol {
+      padding-right: 1.5rem;
+      margin-top: 0.5rem;
+    }
+
+    li { margin-bottom: 0.35rem; }
+
+    .highlight-box {
+      background: var(--sf);
+      border: 1px solid var(--bdr);
+      border-right: 3px solid var(--cyan);
+      border-radius: 12px;
+      padding: 1rem 1.4rem;
+      margin: 1.2rem 0;
+    }
+
+    .highlight-box p { color: var(--text); font-weight: 500; }
+
+    .warning-box {
+      background: rgba(37,99,235,0.06);
+      border: 1px solid rgba(37,99,235,0.18);
+      border-right: 3px solid var(--bluel);
+      border-radius: 12px;
+      padding: 1rem 1.4rem;
+      margin: 1.2rem 0;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.8rem;
+      font-size: 0.85rem;
+    }
+
+    .data-table th {
+      background: var(--sf2);
+      color: var(--bluel);
+      font-weight: 700;
+      padding: 0.65rem 0.9rem;
+      text-align: right;
+      border-bottom: 1px solid var(--bdr);
+    }
+
+    .data-table td {
+      color: var(--muted);
+      padding: 0.6rem 0.9rem;
+      border-bottom: 1px solid var(--bdr);
+      vertical-align: top;
+    }
+
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: rgba(37,99,235,0.04); }
+
+    .contact-card {
+      background: var(--sf2);
+      border: 1px solid var(--bdrh);
+      border-radius: 16px;
+      padding: 1.3rem 1.6rem;
+      margin-top: 1.5rem;
+    }
+
+    .contact-card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.7rem;
+      color: var(--text);
+    }
+
+    .contact-card a {
+      color: var(--bluel);
+      text-decoration: none;
+    }
+    .contact-card a:hover { text-decoration: underline; }
+
+    /* ─── FOOTER ───────────────────────────────────────────── */
+    .legal-footer {
+      border-top: 1px solid var(--bdr);
+      padding: 2rem;
+      text-align: center;
+      background: var(--bg2);
+    }
+
+    .legal-footer-links {
+      display: flex; gap: 1.5rem; justify-content: center;
+      flex-wrap: wrap; margin-bottom: 0.8rem;
+    }
+
+    .legal-footer-links a {
+      font-size: 0.82rem;
+      color: var(--dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .legal-footer-links a:hover { color: var(--bluel); }
+
+    .legal-footer-logo {
+      display: block;
+      height: 50px;
+      width: auto;
+      margin: 0 auto 1rem;
+    }
+
+    .legal-footer p {
+      font-size: 0.78rem;
+      color: var(--dim);
+    }
+
+    @media (max-width: 600px) {
+      .legal-nav { padding: 0.9rem 1.2rem; }
+      .legal-page-header, .legal-toc, .legal-wrap { padding-right: 1.2rem; padding-left: 1.2rem; }
+      .data-table { font-size: 0.78rem; }
+      .data-table th, .data-table td { padding: 0.45rem 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="legal-nav">
+    <a href="index.html" class="legal-nav-brand">
+      <img src="screenshots/LogoWithNoDescription.png" alt="מאי מלכא" />
+    </a>
+    <div class="legal-nav-links">
+      <a href="#accessibility">♿ נגישות</a>
+      <a href="#privacy">🔒 פרטיות</a>
+      <a href="#terms">📋 תקנון</a>
+      <a href="#disclaimer">🛡️ אחריות</a>
+    </div>
+    <a href="index.html" class="legal-nav-back">→ חזרה לדף הראשי</a>
+  </nav>
+
+  <!-- ─── PAGE HEADER ───────────────────────────────────────── -->
+  <div class="legal-page-header">
+    <h1>מסמכים <span>משפטיים</span></h1>
+    <p>מאי מלכא — שירותי דפי נחיתה · עודכן לאחרונה: מאי 2026</p>
+  </div>
+
+  <div class="legal-toc">
+    <a href="#accessibility" class="toc-btn">♿ הצהרת נגישות</a>
+    <a href="#privacy"       class="toc-btn">🔒 מדיניות פרטיות</a>
+    <a href="#terms"         class="toc-btn">📋 תקנון שימוש</a>
+    <a href="#disclaimer"   class="toc-btn">🛡️ הגבלת אחריות</a>
+  </div>
+
+  <div class="legal-wrap">
+
+    <!-- ══════════════════════════════════════════════════════ -->
+    <!-- SECTION 1: הצהרת נגישות                              -->
+    <!-- ══════════════════════════════════════════════════════ -->
+    <section class="legal-section" id="accessibility">
+
+      <div class="legal-badge badge-access">♿ נגישות</div>
+      <h1 class="legal-section-title">הצהרת <span>נגישות</span></h1>
+      <p class="legal-meta">תקן ישראלי 5568 / WCAG 2.1 AA · עודכן: מאי 2026</p>
+
+      <div class="highlight-box">
+        <p>מאי מלכא מחויב לנגישות הדיגיטלית ולהבטחת שוויון הזדמנויות לכלל המשתמשים, לרבות אנשים עם מוגבלויות. אנו פועלים בהתאם להוראות חוק שוויון זכויות לאנשים עם מוגבלות (תשנ"ח-1998) ולתקנות הנגישות לפי תקן ישראלי 5568 המבוסס על WCAG 2.1.</p>
+      </div>
+
+      <h2>1. מהות ההצהרה</h2>
+      <p>הצהרה זו מתייחסת לאתר האינטרנט הנוכחי. אנו שואפים להגיע לרמת עמידה מלאה בדרישות תקן ישראלי 5568 ברמת AA של WCAG 2.1.</p>
+
+      <h2>2. תכונות נגישות קיימות</h2>
+      <ul>
+        <li>שפה מוגדרת ב-HTML כעברית (<code>lang="he"</code>) וכיוון טקסט RTL</li>
+        <li>מבנה כותרות היררכי ועקבי (H1, H2, H3)</li>
+        <li>תגיות <code>alt</code> על תמונות (היכן שרלוונטי)</li>
+        <li>כפתורים ואזורים אינטראקטיביים מכילים תוויות נגישות (<code>aria-label</code>)</li>
+        <li>ניגודיות צבעים עומדת בדרישות רמה AA</li>
+        <li>אפשרות ניווט מלאה במקלדת</li>
+        <li>טפסים מכילים תוויות (<code>label</code>) המקושרות לשדות</li>
+        <li>אנימציות מכבדות העדפת משתמש (<code>prefers-reduced-motion</code>)</li>
+        <li>אזורי ניווט ותוכן מסומנים בסמנטיקת HTML5 (<code>nav</code>, <code>main</code>, <code>footer</code>)</li>
+      </ul>
+
+      <h2>3. מגבלות ידועות</h2>
+      <ul>
+        <li>חלק מהאנימציות הדינמיות עשויות להיות מאתגרות עבור קוראי מסך ישנים</li>
+        <li>שדות טפסים מסוימים אינם כוללים עדיין הודעות שגיאה מפורטות עבור קוראי מסך</li>
+      </ul>
+
+      <h2>4. תקן ורמת עמידה</h2>
+      <p>אנו מיישמים את תקן ישראלי 5568 המבוסס על הנחיות WCAG 2.1 ברמת AA. הערכת הנגישות האחרונה בוצעה בחודש מאי 2026 באמצעות בדיקה ידנית ובדיקה אוטומטית.</p>
+
+      <h2>5. טכנולוגיות נגישות נתמכות</h2>
+      <ul>
+        <li>NVDA עם Google Chrome (Windows)</li>
+        <li>VoiceOver עם Safari (macOS ו-iOS)</li>
+        <li>TalkBack עם Chrome (Android)</li>
+        <li>ניווט מלא במקלדת בכל הדפדפנים המובילים</li>
+      </ul>
+
+      <h2>6. יצירת קשר בנושא נגישות</h2>
+      <p>אם נתקלתם בבעיית נגישות, זיהיתם מחסום, או זקוקים לעזרה בגישה לתוכן כלשהו — אנו מזמינים אתכם לפנות אלינו. נשתדל לענות תוך 5 ימי עסקים.</p>
+
+      <div class="contact-card">
+        <h3>רכז הנגישות — מאי מלכא</h3>
+        <p>דוא"ל: <a href="mailto:maymalka911@gmail.com">maymalka911@gmail.com</a></p>
+        <p>טלפון: <a href="tel:+972505505580">050-5505580</a></p>
+        <p style="margin-top:0.4rem;font-size:0.83rem;color:var(--dim);">ציינו בנושא: "פנייה בנושא נגישות"</p>
+      </div>
+
+      <h2>7. מנגנון אכיפה</h2>
+      <p>אם לא קיבלתם מענה מספק לפנייתכם, ניתן לפנות לנציב שוויון זכויות לאנשים עם מוגבלות במשרד המשפטים, או להגיש תלונה לנציבות שוויון זכויות לאנשים עם מוגבלות בהתאם לחוק.</p>
+
+      <h2>8. עדכון ההצהרה</h2>
+      <p>הצהרה זו תעודכן בעת ביצוע שינויים מהותיים באתר, ולכל הפחות אחת לשנה. תאריך עדכון אחרון: מאי 2026.</p>
+
+    </section>
+
+    <hr class="legal-section-divider">
+
+    <!-- ══════════════════════════════════════════════════════ -->
+    <!-- SECTION 2: מדיניות פרטיות                            -->
+    <!-- ══════════════════════════════════════════════════════ -->
+    <section class="legal-section" id="privacy">
+
+      <div class="legal-badge badge-privacy">🔒 פרטיות</div>
+      <h1 class="legal-section-title">מדיניות <span>פרטיות</span></h1>
+      <p class="legal-meta">חוק הגנת הפרטיות (תשמ"א-1981) ותקנות GDPR · עודכן: מאי 2026</p>
+
+      <div class="highlight-box">
+        <p>מדיניות פרטיות זו מסבירה כיצד מאי מלכא ("אנו", "השירות") אוסף, משתמש ומגן על המידע האישי שלכם בהתאם לחוק הגנת הפרטיות (תשמ"א-1981), תקנות הגנת הפרטיות (אבטחת מידע), תשע"ז-2017, ותקנות ה-GDPR האירופאי, ככל שחל.</p>
+      </div>
+
+      <h2>1. מי אחראי על המידע</h2>
+      <div class="contact-card" style="margin-top:0.5rem">
+        <h3>מאי מלכא — שירותי דפי נחיתה</h3>
+        <p>דוא"ל: <a href="mailto:maymalka911@gmail.com">maymalka911@gmail.com</a></p>
+        <p>טלפון: <a href="tel:+972505505580">050-5505580</a></p>
+      </div>
+
+      <h2>2. מידע שאנו אוספים</h2>
+      <p>אנו אוספים את המידע הבא רק כאשר אתם ממלאים את טופס הפנייה שבאתר:</p>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>שדה</th>
+            <th>האם חובה?</th>
+            <th>מטרת האיסוף</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>שם מלא</td>
+            <td>כן</td>
+            <td>יצירת קשר מותאמת אישית</td>
+          </tr>
+          <tr>
+            <td>מספר טלפון</td>
+            <td>כן</td>
+            <td>יצירת קשר לצורך תיאום שיחה</td>
+          </tr>
+          <tr>
+            <td>כתובת דוא"ל</td>
+            <td>לא</td>
+            <td>חזרה אופציונלית בדוא"ל לפי בקשת הפונה</td>
+          </tr>
+          <tr>
+            <td>בעיות נבחרות (checkbox)</td>
+            <td>לא</td>
+            <td>הבנת הצורך העיקרי לפני שיחת הייעוץ</td>
+          </tr>
+          <tr>
+            <td>שעות מועדפות לשיחה</td>
+            <td>כן</td>
+            <td>תיאום מועד שיחת הייעוץ</td>
+          </tr>
+          <tr>
+            <td>יום מועדף לשיחה</td>
+            <td>לא</td>
+            <td>תיאום מועד שיחת הייעוץ</td>
+          </tr>
+          <tr>
+            <td>תיאור העסק והצרכים</td>
+            <td>לא</td>
+            <td>הכנה לשיחת הייעוץ</td>
+          </tr>
+          <tr>
+            <td>חותמת זמן (timestamp)</td>
+            <td>אוטומטי</td>
+            <td>ניהול תור הפניות</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p style="margin-top:0.8rem;">אנו <strong>אינינו</strong> אוספים נתוני כרטיס אשראי, נתונים ביומטריים, מידע רגיש כמשמעותו בחוק, או נתוני גלישה מעבר למה שנדרש לתפעול האתר.</p>
+
+      <h2>3. כיצד המידע מועבר ומאוחסן</h2>
+      <p>הטופס באתר שולח את הנתונים לשירות Google Apps Script, המאחסן אותם ב-Google Sheets המוגן בחשבון Google פרטי של מאי מלכא. העברת הנתונים מתבצעת דרך HTTPS מוצפן. Google מהווה מעבד נתונים מטעמנו ופועלת בהתאם ל<a href="https://policies.google.com/privacy" target="_blank" rel="noopener" style="color:var(--bluel)">מדיניות הפרטיות של Google</a>.</p>
+      <p style="margin-top:0.8rem;">בנוסף, הגשת הטופס מפעילה <strong>הודעת אימייל אוטומטית</strong> לחשבון Gmail של מאי מלכא, המכילה את כל הפרטים שמסרת. הודעה זו נשמרת בתיבת הדוא"ל הפרטית כחלק מניהול הפניות. כלל הנתונים נשמרים תחת תנאי שירות ואבטחה של Google Workspace.</p>
+
+      <h2>3b. נתוני הצ'אטבוט — זרימה ועיבוד</h2>
+      <p>כאשר אתה מסכים לעוגיות פונקציונליות <strong>ובוחר להשתמש בצ'אטבוט</strong>, נשלחים לשרת חיצוני שני פריטים:</p>
+      <ul>
+        <li><strong>תוכן ההודעה שהקלדת</strong> — הטקסט שלך בלבד</li>
+        <li><strong>מזהה הסשן</strong> (<code>chatSessionId</code>) — מספר אקראי לשמירת הקשר השיחה</li>
+      </ul>
+      <p style="margin-top:0.7rem;">הנתונים נשלחים ב-HTTPS מוצפן לשרת <strong>Make.com</strong> המאוחסן באיחוד האירופי (EU1). Make.com מהווה מעבד נתונים מטעמנו לצורך עיבוד התגובה בלבד. <strong>Make.com אינה מאחסנת את ההודעות לאחר עיבודן</strong> ואינה מוכרת אותן לצד שלישי. מידע נוסף: <a href="https://www.make.com/en/privacy-notice" target="_blank" rel="noopener" style="color:var(--bluel)">מדיניות הפרטיות של Make.com</a>.</p>
+      <p style="margin-top:0.7rem;">אם לא נתת הסכמה לעוגיות פונקציונליות, הצ'אטבוט <strong>אינו שולח שום נתון</strong> לשרת חיצוני כלשהו.</p>
+
+      <h2>4. מטרות השימוש במידע</h2>
+      <ul>
+        <li>יצירת קשר ראשוני בעקבות פנייתכם</li>
+        <li>תיאום פגישת ייעוץ ראשונה (ללא עלות)</li>
+        <li>מתן הצעת מחיר מותאמת אישית</li>
+        <li>ניהול פרויקט בניית דף הנחיתה (ככל שתבחרו לקדם)</li>
+      </ul>
+      <p style="margin-top:0.8rem;"><strong>צ'אטבוט:</strong> הודעות שנשלחות דרך הצ'אטבוט מעובדות אך ורק למטרת מתן מענה בזמן אמת לשאלתך. הן אינן נשמרות לאחר סיום השיחה, ואינן משמשות לשיווק, פרופיילינג, או כל מטרה אחרת.</p>
+      <p style="margin-top:0.7rem;"><strong>לא נשתמש במידע שלכם לצרכי שיווק ישיר ללא הסכמתכם המפורשת.</strong></p>
+
+      <h2>5. בסיס חוקי לעיבוד המידע</h2>
+      <ul>
+        <li><strong>הסכמתכם</strong> — מילוי הטופס מהווה הסכמה מדעת לאיסוף ועיבוד המידע</li>
+        <li><strong>אינטרס לגיטימי</strong> — מתן מענה לפנייה שיזמתם</li>
+        <li><strong>ביצוע חוזה</strong> — ככל שנכרת הסכם לאספקת שירותים</li>
+        <li><strong>אינטרס לגיטימי</strong> — עיבוד הודעות הצ'אטבוט לצורך מתן שירות ומענה לשאלה שיזמת (GDPR Article 6(1)(f))</li>
+      </ul>
+
+      <h2>6. שיתוף מידע עם צדדים שלישיים</h2>
+      <p>אנו לא מוכרים, לא מעבירים ולא מסחרים את המידע האישי שלכם. המידע עשוי להיות נגיש בלבד לגורמים הבאים:</p>
+      <ul>
+        <li><strong>Google LLC</strong> — כמעבד נתונים לאחסון הטופס (Google Sheets) ולשליחת הודעת אימייל (Gmail)</li>
+        <li><strong>Make.com</strong> — מעבד נתונים לעיבוד הצ'אטבוט, שרת EU בלבד, רק כאשר הסכמת לעוגיות פונקציונליות</li>
+        <li><strong>ספקי תשלום</strong> — אם תבחרו לשלם דרך פלטפורמה חיצונית (כפופים למדיניות הפרטיות שלהם)</li>
+        <li><strong>גורמי אכיפת חוק</strong> — רק אם נדרש על פי צו שיפוטי</li>
+      </ul>
+
+      <h2>7. תקופת שמירת המידע</h2>
+      <ul>
+        <li><strong>פניות שלא הומרו ללקוחות</strong> — עד 12 חודשים מיום הפנייה</li>
+        <li><strong>פרטי לקוחות פעילים</strong> — לאורך כל תקופת ההתקשרות ועוד 5 שנים לאחריה</li>
+        <li><strong>חשבוניות ומסמכי עסקה</strong> — 7 שנים בהתאם לחוק ניהול פנקסי חשבונות</li>
+      </ul>
+
+      <h2>8. זכויותיכם</h2>
+      <ul>
+        <li><strong>זכות עיון</strong> — לקבל מידע על הנתונים שנשמרו אודותיכם</li>
+        <li><strong>זכות תיקון</strong> — לבקש תיקון נתונים שגויים</li>
+        <li><strong>זכות מחיקה</strong> — לבקש מחיקת המידע ("הזכות להישכח")</li>
+        <li><strong>זכות הגבלת עיבוד</strong> — להגביל את השימוש במידע בנסיבות מסוימות</li>
+        <li><strong>זכות ניידות</strong> — לקבל את המידע בפורמט מובנה</li>
+        <li><strong>זכות התנגדות</strong> — להתנגד לעיבוד המידע לצרכי שיווק</li>
+        <li><strong>זכות ביטול הסכמה</strong> — לבטל בכל עת הסכמה שנתתם</li>
+      </ul>
+      <p style="margin-top:0.7rem;">לממש זכות כלשהי, פנו אלינו בדוא"ל. נשיב תוך 30 ימים.</p>
+
+      <h2>9. עוגיות, אחסון מקומי, וניהול הסכמה</h2>
+
+      <p>אנו משתמשים בקטגוריות הבאות של עוגיות ומנגנוני אחסון:</p>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>קטגוריה</th>
+            <th>מה כלול</th>
+            <th>מטרה</th>
+            <th>טעון הסכמה?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>חיוני בלבד</strong></td>
+            <td>עוגיית TermsFeed לזכירת בחירת ההסכמה שלך</td>
+            <td>תפעול האתר, אבטחה, זיכרון העדפות עוגיות</td>
+            <td>לא — פעיל תמיד</td>
+          </tr>
+          <tr>
+            <td><strong>פונקציונלי</strong></td>
+            <td>sessionStorage: <code>chatSessionId</code> (מזהה אקראי בלבד, ללא מידע אישי)</td>
+            <td>שמירת הקשר השיחה עם הצ'אטבוט לאורך הגלישה</td>
+            <td>כן — נדרשת הסכמה מפורשת</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="highlight-box" style="margin-top:1.2rem;">
+        <p><strong>כלי ניהול ההסכמה:</strong> אנו משתמשים ב-<strong>TermsFeed Cookie Consent</strong> לניהול בחירת ההסכמה שלך. TermsFeed עשויה לאחסן עוגייה לזיכרון הבחירה שלך בלבד. היא אינה עוקבת אחריך, אינה מוכרת נתונים, ואינה יוצרת פרופיל פרסומי. בכל עת ניתן לשנות את הבחירה דרך הכפתור "עדכון העדפות עוגיות" בתחתית הדף.</p>
+      </div>
+
+      <p style="margin-top:0.8rem;"><strong>sessionStorage ולא Cookie:</strong> מזהה הצ'אטבוט (<code>chatSessionId</code>) נשמר ב-<code>sessionStorage</code> של הדפדפן — לא בעוגייה. הוא נמחק מיד עם סגירת הכרטיסייה, אינו מכיל שום מידע אישי — רק מספר אקראי לזיהוי הקשר השיחה.</p>
+
+      <p style="margin-top:0.8rem;">אנו <strong>אינינו</strong> משתמשים בעוגיות שיווקיות, Google Analytics, Facebook Pixel, פיקסלים לפרסום מחדש, או כלי מדידה אחרים.</p>
+
+      <h2>10. אבטחת מידע</h2>
+      <ul>
+        <li>תקשורת מוצפנת (HTTPS/TLS) על כל העברת נתונים</li>
+        <li>גישה מוגבלת לנתונים — אך ורק לבעל העסק</li>
+        <li>גיבוי מאובטח</li>
+      </ul>
+
+      <h2>11. העברת מידע לחו"ל</h2>
+      <p>נתוני הטופס מאוחסנים בשרתי Google LLC, שחלקם ממוקמים מחוץ לישראל. Google מחויבת להסכמי הגנת נתונים (Data Privacy Framework) ולתקנות ה-GDPR.</p>
+      <p style="margin-top:0.8rem;">הודעות שנשלחות דרך הצ'אטבוט מעובדות בשרת Make.com הממוקם באיחוד האירופי (EU1, Frankfurt). Make.com כפופה ל-GDPR כמעבד נתונים מוסמך (EU-based processor), ואין בכך העברת מידע מחוץ לגבולות ה-GDPR.</p>
+
+      <h2>12. שינויים במדיניות</h2>
+      <p>שינויים מהותיים יפורסמו באתר עם ציון תאריך העדכון. המשך השימוש באתר לאחר שינוי מהווה הסכמה לנוסח המעודכן.</p>
+
+      <h2>13. יצירת קשר בנושאי פרטיות</h2>
+      <div class="contact-card">
+        <h3>ממונה הפרטיות — מאי מלכא</h3>
+        <p>דוא"ל: <a href="mailto:maymalka911@gmail.com">maymalka911@gmail.com</a></p>
+        <p>טלפון: <a href="tel:+972505505580">050-5505580</a></p>
+        <p style="margin-top:0.4rem;font-size:0.83rem;color:var(--dim);">ציינו בנושא: "פנייה בנושא פרטיות" · נשיב תוך 30 ימים</p>
+      </div>
+      <p style="margin-top:1.2rem;">אם לא קיבלתם מענה מספק, ניתן לפנות לרשות להגנת הפרטיות בישראל: <a href="https://www.gov.il/he/departments/the_privacy_protection_authority" target="_blank" rel="noopener" style="color:var(--bluel)">gov.il — רשות הפרטיות</a></p>
+
+    </section>
+
+    <hr class="legal-section-divider">
+
+    <!-- ══════════════════════════════════════════════════════ -->
+    <!-- SECTION 3: תקנון שימוש                               -->
+    <!-- ══════════════════════════════════════════════════════ -->
+    <section class="legal-section" id="terms">
+
+      <div class="legal-badge badge-terms">📋 תקנון</div>
+      <h1 class="legal-section-title">תקנון <span>שימוש</span></h1>
+      <p class="legal-meta">חוק הגנת הצרכן (תשמ"א-1981) · עודכן: מאי 2026</p>
+
+      <div class="highlight-box">
+        <p>תקנון זה מסדיר את תנאי השימוש באתר ואת תנאי ההתקשרות לצורך רכישת שירות בניית דף נחיתה מאת מאי מלכא. השימוש באתר ו/או פנייה לקבלת שירות מהווים הסכמה לתנאים המפורטים להלן.</p>
+      </div>
+
+      <h2>1. הגדרות</h2>
+      <ul>
+        <li><strong>"השירות"</strong> — שירות עיצוב ובניית דף נחיתה המסופק על ידי מאי מלכא</li>
+        <li><strong>"הלקוח"</strong> — כל אדם או עסק הפונה לקבלת השירות ו/או רוכש אותו</li>
+        <li><strong>"האתר"</strong> — אתר האינטרנט הנוכחי</li>
+        <li><strong>"הצדדים"</strong> — מאי מלכא והלקוח יחדיו</li>
+      </ul>
+
+      <h2>2. תיאור השירות</h2>
+      <p>מאי מלכא מספק שירותי דיגיטל לבעלי עסקים ישראלים. השירותים כוללים שלושה תחומים עיקריים:</p>
+      <ul>
+        <li><strong>דפי נחיתה ואתרים</strong> — קופי מכירתי, עיצוב פרימיום ופיתוח מלא מקצה לקצה, כולל חיבור לוואטסאפ ולטופס לידים, 2 סבבי תיקונים והעלאה לאוויר. זמן אספקה: 5–7 ימי עסקים.</li>
+        <li><strong>צ'אטבוטים ואוטומציות</strong> — בניית צ'אטבוט מותאם לאתר, אוטומציות לידים ותקשורת, חיבור ל-CRM וכלים קיימים. זמן אספקה: 7–10 ימים.</li>
+        <li><strong>סוכני AI</strong> — בניית סוכן AI מותאם לעסק, אינטגרציה לכלים קיימים, אימון והתאמה. זמן אספקה: 2–3 שבועות לפי הסקופ.</li>
+      </ul>
+      <p style="margin-top:0.7rem;">כל שירות כולל שיחת ייעוץ ראשונה ללא עלות. שירותים נוספים (קידום אורגני, ניהול פרסום, תחזוקה שוטפת) אינם כלולים ויתומחרו בנפרד.</p>
+
+      <h2>3. תהליך ההתקשרות</h2>
+      <ol>
+        <li>הלקוח מגיש פנייה באמצעות טופס הליד באתר</li>
+        <li>מאי מלכא יוצר קשר תוך 24 שעות לתיאום שיחת ייעוץ</li>
+        <li>לאחר שיחת הייעוץ נשלחת הצעת מחיר מפורטת</li>
+        <li>עם אישור ההצעה מתקבלת מקדמה (50% מהסכום הכולל)</li>
+        <li>עם קבלת המקדמה מתחיל תהליך העיצוב והפיתוח</li>
+        <li>לאחר אישור הלקוח את התוצר הסופי, מועברת יתרת התשלום ומוסרים הקבצים</li>
+      </ol>
+
+      <h2>4. מחירים ותשלום</h2>
+      <p>המחיר נקבע לפי סוג השירות ומורכבות הפרויקט, ומוצג ללקוח בהצעת מחיר כתובה לאחר שיחת הייעוץ.</p>
+      <ul>
+        <li>תשלום בשני שלבים: מקדמה 50% בתחילת הפרויקט, יתרה עם אישור סופי</li>
+        <li>ניתן לשלם בהעברה בנקאית, ביט, פייבוקס, או כרטיס אשראי</li>
+        <li>חשבונית מס תסופק על כל תשלום</li>
+      </ul>
+
+      <h2>5. ביטול וזכות חזרה</h2>
+      <div class="warning-box">
+        <p><strong>לצרכנים (יחידים שאינם עוסקים):</strong> בהתאם לחוק הגנת הצרכן ותקנות ביטול עסקה (תשע"א-2010), עומדת לכם הזכות לבטל את ההזמנה תוך 14 ימים ממועד כריתת ההסכם, ובתנאי שהעבודה טרם החלה.</p>
+      </div>
+      <ul>
+        <li><strong>ביטול לפני תחילת העבודה</strong> — החזר מלא בניכוי דמי ביטול של ₪200</li>
+        <li><strong>ביטול לאחר תחילת העיצוב</strong> — המקדמה לא תוחזר, אך לא ידרש תשלום נוסף</li>
+        <li><strong>ביטול לאחר מסירת טיוטה ראשונה</strong> — לא יבוצע החזר; הלקוח יקבל את קבצי הטיוטה שנוצרו</li>
+      </ul>
+      <p style="margin-top:0.7rem;">בקשת ביטול תוגש בכתב בלבד לדוא"ל: <a href="mailto:maymalka911@gmail.com" style="color:var(--bluel)">maymalka911@gmail.com</a></p>
+
+      <h2>6. תיקונים ושינויים</h2>
+      <ul>
+        <li>כלולים עד <strong>2 סבבי תיקונים</strong> ללא עלות נוספת</li>
+        <li>כל סבב תיקונים מוגדר כרשימה אחת של הערות שהוגשה בבת אחת</li>
+        <li>שינויים מהותיים לאחר אישור עיצוב יתומחרו בנפרד</li>
+      </ul>
+
+      <h2>7. מסירה ואחריות טכנית</h2>
+      <ul>
+        <li>זמן האספקה: 5–7 ימי עסקים ממועד קבלת המקדמה ואישור כל החומרים מהלקוח</li>
+        <li>עיכוב באספקת חומרים מהלקוח (תמונות, טקסטים, לוגו) עשוי לדחות את המסירה</li>
+        <li>הקבצים יסופקו בפורמט HTML/CSS/JS מוכן לאירוח</li>
+        <li>ייעוץ ראשוני בנושאי אירוח כלול ללא עלות נוספת</li>
+      </ul>
+
+      <h2>8. קניין רוחני</h2>
+      <p>עם השלמת התשלום המלא, הזכויות בדף הנחיתה המוגמר מועברות ללקוח במלואן, לרבות קוד המקור והעיצוב הגרפי שנוצר לפרויקט.</p>
+      <p style="margin-top:0.7rem;">מאי מלכא שומר לעצמו את הזכות לציין את הפרויקט כחלק מתיק העבודות שלו, אלא אם הלקוח הגיש בקשה כתובה לסודיות.</p>
+      <p style="margin-top:0.7rem;">הלקוח אחראי לוודא שיש לו זכויות לשימוש בכל חומר שמספק (תמונות, לוגו, טקסטים).</p>
+
+      <h2>9. הגבלת אחריות</h2>
+      <ul>
+        <li>אנו אינינו מתחייבים לתוצאות שיווקיות ספציפיות — אלה תלויות בגורמים רבים מחוץ לשליטתנו</li>
+        <li>אחריותנו הכוללת בגין כל תביעה לא תעלה על הסכום ששולם בפועל</li>
+        <li>איננו אחראים לנזקים עקיפים, ירידה בהכנסות, או אובדן רווחים</li>
+      </ul>
+
+      <h2>10. שמירת סודיות</h2>
+      <p>שני הצדדים מתחייבים לשמור בסוד מידע עסקי שנחשף במסגרת ההתקשרות ולא להעבירו לצדדים שלישיים ללא הסכמה בכתב.</p>
+
+      <h2>11. דין חל וסמכות שיפוט</h2>
+      <p>תקנון זה וכל מחלוקת הנובעת ממנו כפופים לדיני מדינת ישראל. סמכות השיפוט הבלעדית תהא לבתי המשפט המוסמכים בישראל.</p>
+
+      <h2>12. יישוב מחלוקות</h2>
+      <p>במקרה של מחלוקת, אנו מזמינים את הלקוח לפנות אלינו ישירות כצעד ראשון. נשתדל לפתור כל מחלוקת תוך 14 ימי עסקים מיום קבלת הפנייה בכתב.</p>
+
+      <h2>13. שינויים בתקנון</h2>
+      <p>מאי מלכא רשאי לעדכן תקנון זה מעת לעת. שינויים יפורסמו באתר עם ציון תאריך העדכון. לגבי עסקאות שנכרתו לפני השינוי, יחולו תנאי התקנון שהיה בתוקף ביום כריתת ההסכם.</p>
+
+      <h2>14. יצירת קשר</h2>
+      <div class="contact-card">
+        <h3>מאי מלכא — שירותי דפי נחיתה</h3>
+        <p>דוא"ל: <a href="mailto:maymalka911@gmail.com">maymalka911@gmail.com</a></p>
+        <p>טלפון: <a href="tel:+972505505580">050-5505580</a></p>
+        <p style="margin-top:0.4rem;font-size:0.83rem;color:var(--dim);">ציינו בנושא: "פנייה בנושא תקנון" · נשיב תוך 5 ימי עסקים</p>
+      </div>
+
+    </section>
+
+    <hr class="legal-section-divider">
+
+    <!-- ══════════════════════════════════════════════════════ -->
+    <!-- SECTION 4: הגבלת אחריות                               -->
+    <!-- ══════════════════════════════════════════════════════ -->
+    <section class="legal-section" id="disclaimer">
+
+      <div class="legal-badge badge-disclaimer">🛡️ הגבלת אחריות</div>
+      <h1 class="legal-section-title">הגבלת <span>אחריות</span></h1>
+      <p class="legal-meta">פקודת הנזיקין [נוסח חדש] · חוק החוזים (חלק כללי), תשל"ג-1973 · עודכן: מאי 2026</p>
+
+      <div class="highlight-box">
+        <p>מסמך זה מגדיר את מגבלות האחריות של מאי מלכא ("נותן השירות") כלפי לקוחות ומשתמשי האתר. שימוש באתר ו/או פנייה לשירות מהוות הסכמה לתנאים המפורטים להלן.</p>
+      </div>
+
+      <h2>1. היקף האחריות של נותן השירות</h2>
+      <p>מאי מלכא אחראי אך ורק לביצוע העבודה המוגדרת במפורש בהסכם שנכרת בין הצדדים. כל שירות, פעולה, או תוצאה שאינם מוגדרים במפורש בהסכם — מחוץ לתחום האחריות של נותן השירות.</p>
+
+      <h2>2. אי-אחריות לתוצאות שיווקיות</h2>
+      <p>מאי מלכא מספק שירות עיצוב ופיתוח טכני של דפי נחיתה. אין בכך הבטחה, ערובה, או מצג לגבי:</p>
+      <ul>
+        <li>היקף הלידים, הפניות, או ההכנסות שיתקבלו כתוצאה מהדף</li>
+        <li>דירוג האתר במנועי חיפוש (SEO)</li>
+        <li>שיעורי המרה, שיעורי קלקה, או אחוזי הצלחה של קמפיינים פרסומיים</li>
+        <li>תוצאות עסקיות כלשהן</li>
+      </ul>
+      <p style="margin-top:0.7rem;">תוצאות אלו תלויות בגורמים רבים מחוץ לשליטת נותן השירות: שוק היעד, תקציב פרסום, איכות המוצר, תנאי השוק, ופעולות הלקוח.</p>
+
+      <h2>3. מגבלת גובה הפיצויים</h2>
+      <p>בכל מקרה שבו תקום לנותן השירות חבות כלפי הלקוח — בין בעילת חוזה, בין בעוולה נזיקית, ובין בכל עילה אחרת — סכום הפיצויים המרבי שייפסק לא יעלה על <strong>הסכום ששולם בפועל</strong> לנותן השירות בגין הפרויקט הספציפי שבגינו נטענת החבות.</p>
+
+      <h2>4. אי-אחריות לנזקים עקיפים ותוצאתיים</h2>
+      <p>מאי מלכא לא יישא בכל אחריות לנזקים מהסוגים הבאים, אפילו אם הוזהר מפניהם מראש:</p>
+      <ul>
+        <li>אובדן הכנסות, אובדן רווחים, או ירידה בעסקים</li>
+        <li>נזק למוניטין, פגיעה במותג, או אובדן לקוחות</li>
+        <li>נזקים תוצאתיים, עקיפים, או ממוניים שאינם ישירים</li>
+        <li>אובדן נתונים, עלויות שחזור, או נזק למערכות הלקוח</li>
+        <li>עלויות רכישת שירות חלופי</li>
+      </ul>
+
+      <h2>5. שירותי ופלטפורמות צד שלישי</h2>
+      <p>מאי מלכא עשוי לשלב בדפי הנחיתה שירותים של צדדים שלישיים (Google Forms, WhatsApp, שירותי אחסון, וכדומה). נותן השירות אינו אחראי ל:</p>
+      <ul>
+        <li>תקלות, הפסקות שירות, או שינויי מדיניות של פלטפורמות אלה</li>
+        <li>אבטחת מידע המאוחסן אצל שירותי צד שלישי</li>
+        <li>זמינות הדף — שכן זו תלויה בשירות האחסון שבחר הלקוח</li>
+        <li>שינויים ב-API של פלטפורמות חיצוניות שעלולים לשבש פונקציונליות</li>
+      </ul>
+
+      <h2>6. חומרים שסיפק הלקוח</h2>
+      <p>הלקוח אחראי באופן מלא לכך שכל חומר שמסר (תמונות, לוגו, טקסטים, גרפיקה, שמות מסחריים) מצוי בבעלותו החוקית או שיש לו רישיון לשימוש בהם. מאי מלכא אינו אחראי לכל תביעת הפרת זכויות יוצרים, סימן מסחרי, או זכות אחרת הנובעת מחומרים שסיפק הלקוח.</p>
+
+      <h2>7. כוח עליון (Force Majeure)</h2>
+      <p>מאי מלכא לא ייחשב מפר את ההסכם ולא יישא באחריות לעיכוב הנובע מנסיבות שמחוץ לשליטתו הסבירה: מחלה, תקלת תשתיות אינטרנט, כשל טכנולוגי של גורם שלישי, אסון טבע, מלחמה, מגיפה, שביתה, או צו רגולטורי. במקרים כאלה, הצדדים ישתדלו להגיע להסדר הוגן.</p>
+
+      <h2>8. אין בשירות ייעוץ מקצועי</h2>
+      <p>שירות בניית דף הנחיתה הוא שירות עיצוב ופיתוח בלבד. אין לראות בתוכן שמאי מלכא מייצר (בהתאם לחומרים שמסר הלקוח) משום ייעוץ משפטי, פיננסי, שיווקי, רפואי, או כל ייעוץ מקצועי אחר. הלקוח אחראי לכך שתוכן הדף תואם את דרישות הרגולציה החלה על עסקו.</p>
+
+      <h2>9. הוראות שלא ניתן להתנות עליהן</h2>
+      <p>מגבלות אחריות אלו חלות במלואן ככל שמתיר הדין הישראלי. בהתאם לחוק החוזים (חלק כללי), תשל"ג-1973, ולפקודת הנזיקין — אין בהגבלות אלו כדי לשלול אחריות במקרי <strong>כוונה מפורשת</strong> (מעשה זדון) או <strong>רשלנות רבתי</strong> של נותן השירות, שכן הדין הישראלי אינו מאפשר פטור מאחריות בנסיבות אלה.</p>
+
+      <h2>10. עדכון מסמך זה</h2>
+      <p>מסמך זה עשוי להתעדכן עם שינויים בחוק או בשירות. גרסה מעודכנת תחול על עסקאות שנכרתו לאחר פרסומה. לגבי עסקאות קיימות — יחולו התנאים שהיו בתוקף ביום כריתת ההסכם.</p>
+
+      <div class="contact-card">
+        <h3>שאלות בנושא הגבלת אחריות — מאי מלכא</h3>
+        <p>דוא"ל: <a href="mailto:maymalka911@gmail.com">maymalka911@gmail.com</a></p>
+        <p>טלפון: <a href="tel:+972505505580">050-5505580</a></p>
+        <p style="margin-top:0.4rem;font-size:0.83rem;color:var(--dim);">ציינו בנושא: "שאלה בנושא אחריות" · נשיב תוך 5 ימי עסקים</p>
+      </div>
+
+    </section>
+
+  </div><!-- /legal-wrap -->
+
+  <footer class="legal-footer">
+    <img class="legal-footer-logo" src="screenshots/LogoWithNoDescription.png" alt="מאי מלכא" />
+    <div class="legal-footer-links">
+      <a href="#accessibility">הצהרת נגישות</a>
+      <a href="#privacy">מדיניות פרטיות</a>
+      <a href="#terms">תקנון שימוש</a>
+      <a href="#disclaimer">הגבלת אחריות</a>
+      <a href="index.html">דף הבית</a>
+    </div>
+    <p>© 2026 מאי מלכא · כל הזכויות שמורות · MayAi</p>
+  </footer>
+
+</body>
+</html>

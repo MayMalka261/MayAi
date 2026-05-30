@@ -1,0 +1,44 @@
+#claoudflare
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
+
+# Dev tooling
+.claude/
+.vscode/
+.playwright-mcp/
+dev/
+config/
+
+# Unused assets
+guide.html
+guide.pdf
+guide-preview.png
+carousel-slides.html
+screenshots/carousel/
+screenshots/*.jpeg
+screenshots/AiAgent.jpeg
+screenshots/Automation.jpeg
+screenshots/ChatBot.jpeg
+screenshots/LandingPage.jpeg
+screenshots/MayAi-Logo.jpeg
+screenshots/MayAi-LogoFixed.png
+screenshots/MayAi-Web-Logo-Icon.jpeg
+screenshots/Website.jpeg
+screenshots/PhoneVideo.html
+screenshots/Video.html
+screenshots/hero-after-preloader.png
+screenshots/hero-desktop.png
+screenshots/mobile-form.png
+screenshots/mobile-hero.png
+screenshots/mobile-services.png
+screenshots/mosaic-section.png
+screenshots/pain-section.png
+screenshots/section-video-standalone.png
+screenshots/services-section.png
+screenshots/solution-section.png
+screenshots/video-in-page.png
+screenshots/video-native.png
