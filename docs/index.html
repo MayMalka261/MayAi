@@ -3398,7 +3398,7 @@
       </div>
       <div class="hero-stats fade-up">
         <div class="stat">
-          <div class="stat-num" data-count data-target="300" data-prefix="+" data-suffix="%">+300%</div>
+          <div class="stat-num" data-count data-target="300" data-prefix="ממוצע +" data-suffix="%">ממוצע +300%</div>
           <div class="stat-label">יותר פניות מאותו פרסום</div>
         </div>
         <div class="stat">
@@ -3596,7 +3596,7 @@
         <div class="result-card result-card-hero slide-right">
           <img src="LottieFiles/LeadConversion.svg" alt="" width="100" height="100" style="display:block;margin:0 auto 12px;" loading="lazy">
           <div class="result-label">הגדלת לידים</div>
-          <div class="result-num gradient-text" data-count data-target="300" data-prefix="+" data-suffix="%">+300%</div>
+          <div class="result-num gradient-text" data-count data-target="300" data-prefix="ממוצע +" data-suffix="%">ממוצע +300%</div>
           <div class="result-desc">יותר פניות מאותו פרסום — אותו תקציב, יותר לידים, פחות כסף שנשרף</div>
         </div>
         <div class="result-card slide-left">
@@ -3630,7 +3630,7 @@
   <div class="ticker-section" aria-hidden="true">
     <div class="ticker-track">
       <span>הפרסום שלך מביא גולשים — הדף שלך צריך לסגור אותם</span><span>·</span>
-      <span class="ticker-accent">+300% פניות מאותו פרסום</span><span>·</span>
+      <span class="ticker-accent">ממוצע +300% פניות מאותו פרסום</span><span>·</span>
       <span>3–5 ימי עסקים</span><span>·</span>
       <span class="ticker-accent">עיצוב שעוצר את הגלילה</span><span>·</span>
       <span>קופי שמדבר אל הלקוח</span><span>·</span>
@@ -3638,7 +3638,7 @@
       <span>מושלם על כל מסך</span><span>·</span>
       <span class="ticker-accent">מסירה תוך 5 ימים</span><span>·</span>
       <span>הפרסום שלך מביא גולשים — הדף שלך צריך לסגור אותם</span><span>·</span>
-      <span class="ticker-accent">+300% פניות מאותו פרסום</span><span>·</span>
+      <span class="ticker-accent">ממוצע +300% פניות מאותו פרסום</span><span>·</span>
       <span>3–5 ימי עסקים</span><span>·</span>
       <span class="ticker-accent">עיצוב שעוצר את הגלילה</span><span>·</span>
       <span>קופי שמדבר אל הלקוח</span><span>·</span>
@@ -4048,6 +4048,22 @@
     </div>
   </section>
 
+  <!-- ─── CTA STRIP ──────────────────────────────────────────── -->
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+      <div class="cta-strip fade-up">
+        <h2 class="cta-strip-title">
+          העסק שלך שווה יותר<br />
+          <span class="gradient-text">ממה שהדיגיטל שלו מראה.</span>
+        </h2>
+        <p class="cta-strip-sub">תכל'ס — 20 דקות. יוצאים עם תמונה ברורה מה חסר ומה צריך לקרות. בלי מחויבות.</p>
+        <a href="#form-section" class="btn-primary">
+          בואו נדבר ←
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- ─── OFFER ───────────────────────────────────────────────── -->
   <section id="offer" class="section">
     <div class="offer-glow"></div>
@@ -4127,22 +4143,6 @@
     </div>
   </section>
 
-  <!-- ─── CTA STRIP ──────────────────────────────────────────── -->
-  <section class="section" style="padding-top:0;">
-    <div class="container">
-      <div class="cta-strip fade-up">
-        <h2 class="cta-strip-title">
-          העסק שלך שווה יותר<br />
-          <span class="gradient-text">ממה שהדיגיטל שלו מראה.</span>
-        </h2>
-        <p class="cta-strip-sub">תכל'ס — 20 דקות. יוצאים עם תמונה ברורה מה חסר ומה צריך לקרות. בלי מחויבות.</p>
-        <a href="#form-section" class="btn-primary">
-          בואו נדבר ←
-        </a>
-      </div>
-    </div>
-  </section>
-
   <!-- ─── FORM ───────────────────────────────────────────────── -->
   <section id="form-section" class="section">
     <div class="container">
@@ -4175,6 +4175,16 @@
           <div class="form-group">
             <label class="form-label" for="email">מייל</label>
             <input class="form-input" type="email" id="email" name="email" placeholder="israel@gmail.com" maxlength="100" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="subject">במה אתה מתעניין?</label>
+            <select class="form-input" id="subject" name="subject">
+              <option value="" selected>בחר נושא...</option>
+              <option>דפי נחיתה ואתרים</option>
+              <option>אוטומציות וסוכני AI</option>
+              <option>צ'אטבוטים</option>
+              <option>כל הנושאים</option>
+            </select>
           </div>
           <div class="form-group">
             <label class="form-label">מה הכי כואב לך עכשיו? (אפשר לסמן כמה)</label>
@@ -4236,8 +4246,11 @@
             📅 קבע שיחת ייעוץ חינמית
           </button>
           <p style="font-size:12px;color:var(--dim);text-align:center;margin-top:12px;">
-            בלחיצה על הכפתור אתה מסכים לשמירת הפרטים שלך ב-Google Sheets לצורך יצירת קשר בלבד.
-            <a href="legal.html#privacy" style="color:var(--bluel);text-decoration:underline;">מדיניות פרטיות ←</a>
+            בלחיצה על הכפתור אתה מאשר שקראת את
+            <a href="legal.html#privacy" style="color:var(--bluel);text-decoration:underline;">מדיניות הפרטיות</a>،
+            <a href="legal.html#terms" style="color:var(--bluel);text-decoration:underline;">תקנון השימוש</a>
+            ו<a href="legal.html#accessibility" style="color:var(--bluel);text-decoration:underline;">הצהרת הנגישות</a>,
+            ומסכים לשמירת הפרטים שלך לצורך יצירת קשר בלבד.
           </p>
         </form>
 
@@ -4562,21 +4575,20 @@
       const notes = (fd.get('notes') || '').trim().slice(0, 1000);
       if (!name || !phone) { btn.disabled = false; btn.textContent = '📅 קבע שיחת ייעוץ חינמית'; return; }
 
-      try {
-        await fetch('https://mayai-worker.maymalka911.workers.dev/form', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name, phone, email, notes,
-            problems:  fd.getAll('problems').join(', '),
-            time:      fd.get('time') || '',
-            day:       fd.get('day')  || '',
-          }),
-        });
-      } catch (_) { /* fire-and-forget — show success regardless */ }
-
       form.style.display = 'none';
       document.getElementById('formSuccess').style.display = 'block';
+
+      fetch('https://mayai-worker.maymalka911.workers.dev/form', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name, phone, email, notes,
+          subject:   fd.get('subject') || '',
+          problems:  fd.getAll('problems').join(', '),
+          time:      fd.get('time') || '',
+          day:       fd.get('day')  || '',
+        }),
+      }).catch(() => {});
     });
 
     /* ── Chat Widget ── */

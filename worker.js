@@ -1,5 +1,5 @@
 /**
- * Cloudflare Worker — MayAi proxy
+ * Cloudflare Worker — MayAi Worker
  *
  * Hides the real Make.com webhook and Google Apps Script URLs.
  * Set these two secrets in the Cloudflare dashboard (Workers → Settings → Variables):
@@ -80,6 +80,7 @@ async function handleForm(request, env, origin) {
     name,
     phone,
     email:     (body.email    ?? '').toString().trim().slice(0, 100),
+    subject:   (body.subject  ?? '').toString().trim().slice(0, 100),
     problems:  (body.problems ?? '').toString().slice(0, 200),
     time:      (body.time     ?? '').toString().slice(0, 50),
     day:       (body.day      ?? '').toString().slice(0, 20),
