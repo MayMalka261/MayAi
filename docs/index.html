@@ -450,6 +450,10 @@
       box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(56, 115, 230, 0.15);
     }
 
+    nav.nav-island .nav-logo {
+      height: 42px;
+    }
+
     .nav-inner {
       display: flex;
       align-items: center;
@@ -463,6 +467,7 @@
       display: block;
       height: 60px;
       width: auto;
+      transition: height 0.45s cubic-bezier(0.19, 1, 0.22, 1);
     }
 
     .nav-cta {
@@ -573,6 +578,35 @@
       .nav-links a {
         font-size: 1.25rem;
       }
+
+      .nav-close {
+        position: absolute;
+        top: 1.4rem;
+        left: 50%;
+        transform: translateX(-50%);
+        background: none;
+        border: 1px solid var(--bdr);
+        color: var(--muted);
+        font-size: 1.3rem;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: color 0.2s, border-color 0.2s;
+        z-index: 200;
+      }
+
+      .nav-close:hover {
+        color: var(--text);
+        border-color: var(--bdrh);
+      }
+    }
+
+    @media (min-width: 769px) {
+      .nav-close { display: none; }
     }
 
     /* ─── HERO ────────────────────────────────────────────── */
@@ -822,6 +856,10 @@
     .solution-text .section-title,
     .solution-text .section-sub {
       text-align: right;
+    }
+
+    .solution-text .section-sub {
+      margin-bottom: 1.8rem;
     }
 
     .solution-text .section-label {
@@ -1194,6 +1232,11 @@
       }
     }
 
+    @media (max-width: 640px) {
+      .about-text { text-align: center; }
+      .about-body { text-align: center; }
+    }
+
     /* ─── SOCIAL PROOF ────────────────────────────────────── */
     #proof {
       overflow: hidden;
@@ -1489,6 +1532,10 @@
       .pricing-grid {
         grid-template-columns: 1fr;
         gap: 20px;
+      }
+
+      .pricing-card.featured {
+        order: -1;
       }
     }
 
@@ -1794,6 +1841,19 @@
       color: var(--bluel);
     }
 
+    @media (max-width: 640px) {
+      .footer-inner {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 16px;
+      }
+
+      .footer-logo { order: -2; height: 60px; }
+      .footer-social { order: -1; }
+      .footer-copy { order: 0; }
+    }
+
     /* ─── VISUAL ATMOSPHERE ────────────────────────────────── */
     #particles-canvas {
       position: absolute;
@@ -1902,6 +1962,10 @@
     .ticker-accent {
       color: var(--bluel);
       font-weight: 700;
+    }
+
+    @media (max-width: 640px) {
+      .ticker-track { animation-duration: 14s; }
     }
 
     @keyframes ticker-scroll {
@@ -2492,6 +2556,35 @@
       .expand-card-img {
         opacity: 0.18;
       }
+
+      .expand-card.active {
+        height: 230px;
+      }
+
+      .expand-card.active .expand-card-icon-wrap {
+        opacity: 0.12;
+        transform: scale(1.2);
+      }
+
+      .expand-card.active .expand-card-body {
+        padding-right: 1.4rem;
+        top: auto;
+        bottom: 0;
+        justify-content: flex-end;
+      }
+
+      .expand-card.active .expand-card-desc {
+        display: block;
+      }
+
+      .expand-card.active .expand-card-img {
+        opacity: 0.6;
+      }
+
+      .expand-card.active::before {
+        display: block;
+        opacity: 1;
+      }
     }
 
     /* ─── EXPAND CARD IMAGE LAYER ──────────────────────────── */
@@ -2583,11 +2676,9 @@
       line-height: 1.7;
     }
 
-    @media (max-width: 560px) {
-      .stack-card {
-        position: relative;
-        top: auto;
-      }
+    @media (max-width: 640px) {
+      .stack-card { margin-bottom: 40px; }
+      .stack-card:last-child { margin-bottom: 100px; }
     }
 
     /* ─── SCROLL TIMELINE ─────────────────────────────────── */
@@ -2933,8 +3024,20 @@
         bottom: 8px;
         right: 22px;
         width: 2px;
-        background: linear-gradient(to bottom, rgba(37, 99, 235, 0.15), rgba(6, 182, 212, 0.12));
+        background: rgba(56, 115, 230, 0.12);
         border-radius: 2px;
+      }
+
+      .wave-mobile-fill {
+        position: absolute;
+        top: 8px;
+        right: 22px;
+        width: 2px;
+        height: 0%;
+        background: linear-gradient(to bottom, var(--blue), var(--cyan));
+        border-radius: 2px;
+        z-index: 1;
+        transition: height 0.06s linear;
       }
 
       .wave-mobile-step {
@@ -2942,6 +3045,8 @@
         gap: 18px;
         align-items: flex-start;
         padding-bottom: 2.4rem;
+        position: relative;
+        z-index: 2;
       }
 
       .wave-mobile-icon {
@@ -2955,6 +3060,13 @@
         justify-content: center;
         font-size: 1.2rem;
         flex-shrink: 0;
+        transition: border-color 0.5s ease, box-shadow 0.5s ease, background 0.5s ease;
+      }
+
+      .wave-mobile-step.active .wave-mobile-icon {
+        border-color: var(--cyan);
+        box-shadow: 0 0 0 6px rgba(6, 182, 212, 0.1), 0 0 20px rgba(6, 182, 212, 0.45);
+        background: rgba(6, 182, 212, 0.07);
       }
 
       .wave-mobile-content {
@@ -2967,12 +3079,24 @@
         font-weight: 700;
         color: var(--text);
         margin-bottom: 0.35rem;
+        clip-path: inset(0 0 0 100%);
+        transition: clip-path 0.5s cubic-bezier(.4, 0, .2, 1) 0.05s;
+      }
+
+      .wave-mobile-step.active .wave-mobile-title {
+        clip-path: inset(0 0 0 0);
       }
 
       .wave-mobile-desc {
         font-size: 0.875rem;
         color: var(--muted);
         line-height: 1.65;
+        clip-path: inset(0 0 0 100%);
+        transition: clip-path 0.5s cubic-bezier(.4, 0, .2, 1) 0.2s;
+      }
+
+      .wave-mobile-step.active .wave-mobile-desc {
+        clip-path: inset(0 0 0 0);
       }
     }
 
@@ -3345,6 +3469,7 @@
     <div class="nav-inner">
       <a href="#hero" aria-label="חזרה לראש הדף"><img class="nav-logo" src="screenshots/LogoWithNoDescription.png" alt="מאי מלכא" /></a>
       <ul class="nav-links" id="nav-links">
+        <button class="nav-close" id="nav-close" type="button" aria-label="סגור תפריט">✕</button>
         <li><a href="#pain">הבעיה</a></li>
         <li><a href="#solution">שירותים</a></li>
         <li><a href="#results">תוצאות</a></li>
@@ -3629,34 +3754,34 @@
   <!-- ─── TICKER ──────────────────────────────────────────────── -->
   <div class="ticker-section" aria-hidden="true">
     <div class="ticker-track">
-      <span>הפרסום שלך מביא גולשים — הדף שלך צריך לסגור אותם</span><span>·</span>
-      <span class="ticker-accent">ממוצע +300% פניות מאותו פרסום</span><span>·</span>
-      <span>3–5 ימי עסקים</span><span>·</span>
-      <span class="ticker-accent">עיצוב שעוצר את הגלילה</span><span>·</span>
-      <span>קופי שמדבר אל הלקוח</span><span>·</span>
-      <span class="ticker-accent">×3 שיפור בהמרה</span><span>·</span>
-      <span>מושלם על כל מסך</span><span>·</span>
-      <span class="ticker-accent">מסירה תוך 5 ימים</span><span>·</span>
-      <span>הפרסום שלך מביא גולשים — הדף שלך צריך לסגור אותם</span><span>·</span>
-      <span class="ticker-accent">ממוצע +300% פניות מאותו פרסום</span><span>·</span>
-      <span>3–5 ימי עסקים</span><span>·</span>
-      <span class="ticker-accent">עיצוב שעוצר את הגלילה</span><span>·</span>
-      <span>קופי שמדבר אל הלקוח</span><span>·</span>
-      <span class="ticker-accent">×3 שיפור בהמרה</span><span>·</span>
-      <span>מושלם על כל מסך</span><span>·</span>
-      <span class="ticker-accent">מסירה תוך 5 ימים</span><span>·</span>
+      <span>לידים שמגיעים ולא סוגרים</span><span>·</span>
+      <span class="ticker-accent">הטלפון שקט — הדף אשם</span><span>·</span>
+      <span>פרסום שנזרק לפח</span><span>·</span>
+      <span class="ticker-accent">מתחרים שסוגרים במקומך</span><span>·</span>
+      <span>לקוח שהגיע ולא פנה</span><span>·</span>
+      <span class="ticker-accent">AI שעונה כשאתה ישן</span><span>·</span>
+      <span>עסק שעובד בלי הפסקה</span><span>·</span>
+      <span class="ticker-accent">כסף שמוצא, לקוחות שלא</span><span>·</span>
+      <span>לידים שמגיעים ולא סוגרים</span><span>·</span>
+      <span class="ticker-accent">הטלפון שקט — הדף אשם</span><span>·</span>
+      <span>פרסום שנזרק לפח</span><span>·</span>
+      <span class="ticker-accent">מתחרים שסוגרים במקומך</span><span>·</span>
+      <span>לקוח שהגיע ולא פנה</span><span>·</span>
+      <span class="ticker-accent">AI שעונה כשאתה ישן</span><span>·</span>
+      <span>עסק שעובד בלי הפסקה</span><span>·</span>
+      <span class="ticker-accent">כסף שמוצא, לקוחות שלא</span><span>·</span>
     </div>
   </div>
 
   <!-- ─── SECTION VIDEO ──────────────────────────────────────── -->
   <section id="video-reel" aria-label="הדגמה חזותית"
     style="padding:0;margin:0;position:relative;overflow:hidden;background:#02050f;">
-    <video class="video-reel-desktop" autoplay muted loop playsinline aria-hidden="true"
+    <video class="video-reel-desktop" autoplay muted loop playsinline preload="metadata" aria-hidden="true"
       style="display:block;width:100%;height:70vh;min-height:380px;max-height:680px;object-fit:cover;">
       <source src="screenshots/VideoForComputer.mp4" type="video/mp4">
     </video>
-    <video class="video-reel-mobile" autoplay muted loop playsinline aria-hidden="true"
-      style="display:none;width:100%;height:70vh;min-height:380px;max-height:680px;object-fit:cover;">
+    <video class="video-reel-mobile" autoplay muted loop playsinline preload="metadata" aria-hidden="true"
+      style="display:none;width:100%;height:70vh;min-height:380px;max-height:680px;object-fit:contain;">
       <source src="screenshots/VideoForPhone.mp4" type="video/mp4">
     </video>
   </section>
@@ -3812,8 +3937,9 @@
 
         </div><!-- /.wave-tl-grid -->
 
-        <!-- MOBILE: vertical stack -->
+        <!-- MOBILE: vertical stack with animated fill -->
         <div class="wave-tl-mobile">
+          <div class="wave-mobile-fill" aria-hidden="true"></div>
           <div class="wave-mobile-step">
             <div class="wave-mobile-icon">💬</div>
             <div class="wave-mobile-content">
@@ -4327,10 +4453,12 @@
       const pl = document.getElementById('preloader');
       if (!pl) return;
       const dismiss = () => pl.classList.add('loaded');
+      const safetyTimer = setTimeout(dismiss, 3000);
       if (document.readyState === 'complete') {
+        clearTimeout(safetyTimer);
         setTimeout(dismiss, 400);
       } else {
-        window.addEventListener('load', () => setTimeout(dismiss, 400));
+        window.addEventListener('load', () => { clearTimeout(safetyTimer); setTimeout(dismiss, 400); });
       }
     })();
 
@@ -4369,6 +4497,16 @@
       window.addEventListener('scroll', onStackScroll, { passive: true });
     }
 
+    /* ── Expand cards — click to toggle on mobile ── */
+    document.querySelectorAll('.expand-card').forEach(card => {
+      card.addEventListener('click', () => {
+        if (window.innerWidth > 640) return;
+        const wasActive = card.classList.contains('active');
+        document.querySelectorAll('.expand-card').forEach(c => c.classList.remove('active'));
+        if (!wasActive) card.classList.add('active');
+      });
+    });
+
     /* ── Wave path timeline ── */
     (function () {
       const wavePath = document.getElementById('wavePath');
@@ -4381,6 +4519,8 @@
 
       const nodes = document.querySelectorAll('.wave-node');
       const steps = document.querySelectorAll('.wave-step');
+      const mobileFill = document.querySelector('.wave-mobile-fill');
+      const mobileSteps = document.querySelectorAll('.wave-mobile-step');
       /* thresholds: fraction of progress at which each node/step activates */
       const thresholds = [0.03, 0.32, 0.63, 0.90];
 
@@ -4390,11 +4530,13 @@
         const p = Math.max(0, Math.min(1, (-rect.top + vh * 0.65) / (rect.height * 0.8)));
 
         wavePath.style.strokeDashoffset = total * (1 - p);
+        if (mobileFill) mobileFill.style.height = (p * 100) + '%';
 
         thresholds.forEach((t, i) => {
           const active = p >= t;
           if (nodes[i]) nodes[i].classList.toggle('active', active);
           if (steps[i]) steps[i].classList.toggle('active', active);
+          if (mobileSteps[i]) mobileSteps[i].classList.toggle('active', active);
         });
       };
 
@@ -4463,6 +4605,13 @@
         nav.classList.toggle('menu-open');
         links.classList.toggle('open');
       });
+      const closeBtn = document.getElementById('nav-close');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+          nav.classList.remove('menu-open');
+          links.classList.remove('open');
+        });
+      }
       links.querySelectorAll('a').forEach(a => {
         a.addEventListener('click', () => {
           nav.classList.remove('menu-open');
