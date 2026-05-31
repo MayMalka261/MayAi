@@ -548,6 +548,9 @@
     }
 
     @media (max-width: 768px) {
+      .video-reel-desktop { display: none; }
+      .video-reel-mobile  { display: block; }
+
       .nav-hamburger {
         display: flex;
       }
@@ -580,10 +583,9 @@
       }
 
       .nav-close {
-        position: absolute;
-        top: 1.4rem;
-        left: 50%;
-        transform: translateX(-50%);
+        position: fixed;
+        top: 1.2rem;
+        right: 1.2rem;
         background: none;
         border: 1px solid var(--bdr);
         color: var(--muted);
@@ -1849,8 +1851,8 @@
         gap: 16px;
       }
 
-      .footer-logo { order: -2; height: 60px; }
-      .footer-social { order: -1; }
+      .footer-social { order: -2; }
+      .footer-logo { order: -1; height: 60px; }
       .footer-copy { order: 0; }
     }
 
@@ -3003,7 +3005,7 @@
       transition-delay: 0s;
     }
 
-    /* Wave mobile vertical */
+    /* Wave mobile vertical — S-curve SVG (mirrors desktop wave) */
     @media (max-width: 860px) {
       .wave-tl-grid {
         display: none;
@@ -3014,39 +3016,35 @@
         flex-direction: column;
         margin-top: 48px;
         position: relative;
-        padding-right: 20px;
       }
 
-      .wave-tl-mobile::before {
-        content: '';
+      /* SVG overlay that draws the wavy S-curve path */
+      .wave-mobile-svg-wrap {
         position: absolute;
-        top: 8px;
-        bottom: 8px;
-        right: 22px;
-        width: 2px;
-        background: rgba(56, 115, 230, 0.12);
-        border-radius: 2px;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
       }
 
-      .wave-mobile-fill {
-        position: absolute;
-        top: 8px;
-        right: 22px;
-        width: 2px;
-        height: 0%;
-        background: linear-gradient(to bottom, var(--blue), var(--cyan));
-        border-radius: 2px;
-        z-index: 1;
-        transition: height 0.06s linear;
+      .wave-mobile-svg-wrap svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+        overflow: visible;
       }
 
       .wave-mobile-step {
         display: flex;
-        gap: 18px;
+        gap: 16px;
         align-items: flex-start;
-        padding-bottom: 2.4rem;
+        padding-bottom: 2.8rem;
         position: relative;
         z-index: 2;
+      }
+
+      /* Steps 1 and 3: icon on visual left (row-reverse in RTL = left) */
+      .wave-mobile-step--left {
+        flex-direction: row-reverse;
       }
 
       .wave-mobile-icon {
@@ -3256,13 +3254,6 @@
         text-align: center;
       }
 
-      .video-reel-desktop {
-        display: none;
-      }
-
-      .video-reel-mobile {
-        display: block;
-      }
     }
 
     /* ─── PRELOADER ───────────────────────────────────────── */
@@ -3937,9 +3928,28 @@
 
         </div><!-- /.wave-tl-grid -->
 
-        <!-- MOBILE: vertical stack with animated fill -->
+        <!-- MOBILE: vertical S-curve wave (mirrors desktop) -->
         <div class="wave-tl-mobile">
-          <div class="wave-mobile-fill" aria-hidden="true"></div>
+          <!-- S-curve SVG path — animated via strokeDashoffset in JS -->
+          <div class="wave-mobile-svg-wrap" aria-hidden="true">
+            <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="waveMobileGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#2563EB" />
+                  <stop offset="100%" stop-color="#06B6D4" />
+                </linearGradient>
+              </defs>
+              <!-- dim track -->
+              <path d="M 88,5 C 88,18 12,18 12,30 C 12,43 88,43 88,56 C 88,69 12,69 12,82"
+                fill="none" stroke="rgba(56,115,230,0.12)" stroke-width="1.2" vector-effect="non-scaling-stroke" />
+              <!-- animated gradient fill -->
+              <path id="waveMobilePath"
+                d="M 88,5 C 88,18 12,18 12,30 C 12,43 88,43 88,56 C 88,69 12,69 12,82"
+                fill="none" stroke="url(#waveMobileGrad)" stroke-width="2" stroke-linecap="round"
+                vector-effect="non-scaling-stroke" />
+            </svg>
+          </div>
+          <!-- Step 0: icon on visual right (RTL default) -->
           <div class="wave-mobile-step">
             <div class="wave-mobile-icon">💬</div>
             <div class="wave-mobile-content">
@@ -3948,7 +3958,8 @@
                 לא ממשיכים.</div>
             </div>
           </div>
-          <div class="wave-mobile-step">
+          <!-- Step 1: icon on visual left -->
+          <div class="wave-mobile-step wave-mobile-step--left">
             <div class="wave-mobile-icon">✍️</div>
             <div class="wave-mobile-content">
               <div class="wave-mobile-title">מבנה וקופי</div>
@@ -3956,6 +3967,7 @@
               </div>
             </div>
           </div>
+          <!-- Step 2: icon on visual right -->
           <div class="wave-mobile-step">
             <div class="wave-mobile-icon">🎨</div>
             <div class="wave-mobile-content">
@@ -3964,7 +3976,8 @@
               </div>
             </div>
           </div>
-          <div class="wave-mobile-step">
+          <!-- Step 3: icon on visual left -->
+          <div class="wave-mobile-step wave-mobile-step--left">
             <div class="wave-mobile-icon">🚀</div>
             <div class="wave-mobile-content">
               <div class="wave-mobile-title">העלאה לאוויר</div>
@@ -4203,18 +4216,18 @@
       </h2>
       <div class="pricing-grid">
 
-        <!-- Card 1: Chatbots & Automations -->
+        <!-- Card 1: Chatbots -->
         <div class="pricing-card fade-up">
-          <span class="pricing-icon">🤖</span>
-          <div class="pricing-name">צ'אטבוטים ואוטומציות</div>
-          <div class="pricing-desc">מנהל את הלידים שלך אוטומטית — שירות לקוחות 24/7, בלי להיות שם.</div>
+          <span class="pricing-icon">💬</span>
+          <div class="pricing-name">צ'אטבוטים</div>
+          <div class="pricing-desc">עונה ללקוחות, מסנן לידים ומתזמן פגישות — 24/7, בלי להיות שם.</div>
           <div class="pricing-divider"></div>
           <ul class="pricing-list">
-            <li><span class="chk">✓</span><span>אנליזה של תהליכי העסק</span></li>
-            <li><span class="chk">✓</span><span>בניית צ'אטבוט מותאם לאתר</span></li>
-            <li><span class="chk">✓</span><span>אוטומציות לידים ותקשורת</span></li>
-            <li><span class="chk">✓</span><span>חיבור ל-CRM וכלים קיימים</span></li>
-            <li><span class="chk">✓</span><span>טסטינג ואופטימיזציה</span></li>
+            <li><span class="chk">✓</span><span>אפיון ובניית צ'אטבוט מותאם</span></li>
+            <li><span class="chk">✓</span><span>שיחות חכמות עם AI (GPT)</span></li>
+            <li><span class="chk">✓</span><span>חיבור לאתר / וואטסאפ</span></li>
+            <li><span class="chk">✓</span><span>ניתוב לידים ופניות אוטומטי</span></li>
+            <li><span class="chk">✓</span><span>הגדרת תשובות ותסריטים</span></li>
             <li><span class="chk">✓</span><span>הדרכה + תמיכה לאחר השקה</span></li>
           </ul>
           <div class="line-sep" style="margin-top:1.4rem;" aria-hidden="true"></div>
@@ -4245,17 +4258,18 @@
           </a>
         </div>
 
-        <!-- Card 3: AI Agents -->
+        <!-- Card 3: Automations & AI Agents -->
         <div class="pricing-card fade-up" style="--delay:200ms">
-          <span class="pricing-icon">🧠</span>
-          <div class="pricing-name">סוכני AI</div>
-          <div class="pricing-desc">AI שמבין את העסק שלך ועובד לפי מה שאתה מגדיר — ה-level הבא.</div>
+          <span class="pricing-icon">🤖</span>
+          <div class="pricing-name">אוטומציות וסוכני AI</div>
+          <div class="pricing-desc">מערכות חכמות שעובדות בשבילך — מניהול לידים ועד סוכן AI שפועל עצמאית.</div>
           <div class="pricing-divider"></div>
           <ul class="pricing-list">
-            <li><span class="chk">✓</span><span>הגדרת סקופ וצורך עסקי</span></li>
-            <li><span class="chk">✓</span><span>בניית סוכן AI מותאם</span></li>
-            <li><span class="chk">✓</span><span>אינטגרציה לכלים קיימים</span></li>
-            <li><span class="chk">✓</span><span>אימון והתאמה לעסק שלך</span></li>
+            <li><span class="chk">✓</span><span>מיפוי תהליכים עסקיים</span></li>
+            <li><span class="chk">✓</span><span>אוטומציות לידים ותקשורת</span></li>
+            <li><span class="chk">✓</span><span>בניית סוכן AI מותאם לעסק</span></li>
+            <li><span class="chk">✓</span><span>אינטגרציות ל-CRM וכלים קיימים</span></li>
+            <li><span class="chk">✓</span><span>אימון, בדיקות ואופטימיזציה</span></li>
             <li><span class="chk">✓</span><span>תמיכה לאחר השקה</span></li>
           </ul>
           <div class="line-sep" style="margin-top:1.4rem;" aria-hidden="true"></div>
@@ -4517,9 +4531,17 @@
       wavePath.style.strokeDasharray = total;
       wavePath.style.strokeDashoffset = total;
 
+      /* Mobile S-curve path */
+      const waveMobilePath = document.getElementById('waveMobilePath');
+      let mobileTotal = 0;
+      if (waveMobilePath) {
+        mobileTotal = waveMobilePath.getTotalLength();
+        waveMobilePath.style.strokeDasharray = mobileTotal;
+        waveMobilePath.style.strokeDashoffset = mobileTotal;
+      }
+
       const nodes = document.querySelectorAll('.wave-node');
       const steps = document.querySelectorAll('.wave-step');
-      const mobileFill = document.querySelector('.wave-mobile-fill');
       const mobileSteps = document.querySelectorAll('.wave-mobile-step');
       /* thresholds: fraction of progress at which each node/step activates */
       const thresholds = [0.03, 0.32, 0.63, 0.90];
@@ -4530,7 +4552,7 @@
         const p = Math.max(0, Math.min(1, (-rect.top + vh * 0.65) / (rect.height * 0.8)));
 
         wavePath.style.strokeDashoffset = total * (1 - p);
-        if (mobileFill) mobileFill.style.height = (p * 100) + '%';
+        if (waveMobilePath) waveMobilePath.style.strokeDashoffset = mobileTotal * (1 - p);
 
         thresholds.forEach((t, i) => {
           const active = p >= t;
