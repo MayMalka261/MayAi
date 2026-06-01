@@ -560,21 +560,20 @@
 
       .nav-links {
         position: fixed;
-        top: 72px;
+        top: 0;
         left: 0;
         right: 0;
-        background: rgba(4, 9, 26, 0.97);
+        background: rgba(4, 9, 26, 0.98);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
-        gap: 1.4rem;
-        padding: 1.8rem 2rem;
-        height: auto;
-        border-bottom: 1px solid var(--bdr);
+        gap: 2rem;
+        padding: 5rem 2rem 3rem;
+        height: 100vh;
         z-index: 199;
-        transform: translateY(-110%);
+        transform: translateY(-100%);
         transition: transform 0.4s cubic-bezier(.4, 0, .2, 1);
       }
 
@@ -583,11 +582,31 @@
       }
 
       .nav-links a {
-        font-size: 1.05rem;
+        font-size: 1.25rem;
       }
 
       .nav-close {
-        display: none;
+        position: fixed;
+        top: 1.2rem;
+        right: 1.2rem;
+        background: none;
+        border: 1px solid var(--bdr);
+        color: var(--muted);
+        font-size: 1.3rem;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: color 0.2s, border-color 0.2s;
+        z-index: 200;
+      }
+
+      .nav-close:hover {
+        color: var(--text);
+        border-color: var(--bdrh);
       }
     }
 
@@ -3041,6 +3060,12 @@
         top: -0.5rem;
       }
 
+      /* Steps with icon on right: place number on the right side */
+      .wave-mobile-step:not(.wave-mobile-step--left) .wave-mobile-wm {
+        left: auto;
+        right: 0;
+      }
+
       /* Steps 1 and 3: icon on visual left (row-reverse in RTL = left) */
       .wave-mobile-step--left {
         flex-direction: row-reverse;
@@ -3771,7 +3796,7 @@
       <source src="screenshots/VideoForComputer.mp4" type="video/mp4">
     </video>
     <video class="video-reel-mobile" autoplay muted loop playsinline preload="metadata" aria-hidden="true"
-      style="width:100%;height:70vh;min-height:380px;max-height:680px;object-fit:contain;">
+      style="width:100%;height:70vh;min-height:380px;max-height:680px;object-fit:cover;">
       <source src="screenshots/VideoForPhone.mp4" type="video/mp4">
     </video>
   </section>
@@ -4523,6 +4548,16 @@
         if (!wasActive) card.classList.add('active');
       });
     });
+
+    /* ── Video section — tap to scroll to form ── */
+    (function () {
+      const vid = document.getElementById('video-reel');
+      if (!vid) return;
+      vid.style.cursor = 'pointer';
+      vid.addEventListener('click', () => {
+        document.getElementById('form-section')?.scrollIntoView({ behavior: 'smooth' });
+      });
+    })();
 
     /* ── Wave path timeline ── */
     (function () {
