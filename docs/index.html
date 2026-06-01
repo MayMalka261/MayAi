@@ -3057,7 +3057,7 @@
         pointer-events: none;
         z-index: 0;
         left: 0;
-        top: -1.8rem;
+        top: -3.5rem;
       }
 
       /* Steps with icon on right: place number on the right side */
@@ -3102,11 +3102,14 @@
         color: var(--text);
         margin-bottom: 0.35rem;
         clip-path: inset(0 0 0 100%);
-        transition: clip-path 0.5s cubic-bezier(.4, 0, .2, 1) 0.05s;
+        opacity: 0;
+        transition: clip-path 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.05s,
+                    opacity 0.6s ease 0.05s;
       }
 
       .wave-mobile-step.active .wave-mobile-title {
         clip-path: inset(0 0 0 0);
+        opacity: 1;
       }
 
       .wave-mobile-desc {
@@ -3114,11 +3117,14 @@
         color: var(--muted);
         line-height: 1.65;
         clip-path: inset(0 0 0 100%);
-        transition: clip-path 0.5s cubic-bezier(.4, 0, .2, 1) 0.2s;
+        opacity: 0;
+        transition: clip-path 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.25s,
+                    opacity 0.6s ease 0.25s;
       }
 
       .wave-mobile-step.active .wave-mobile-desc {
         clip-path: inset(0 0 0 0);
+        opacity: 1;
       }
     }
 
@@ -4569,15 +4575,16 @@
       wavePath.style.strokeDasharray = total;
       wavePath.style.strokeDashoffset = total;
 
-      /* Mobile S-curve path */
+      /* Mobile S-curve path — lazy-measured on first scroll in case layout wasn't ready at load */
       const waveMobilePath = document.getElementById('waveMobilePath');
-      const mobileWrap = document.querySelector('.wave-tl-mobile');
       let mobileTotal = 0;
-      if (waveMobilePath) {
+      const initMobileTotal = () => {
+        if (mobileTotal > 0 || !waveMobilePath) return;
         mobileTotal = waveMobilePath.getTotalLength();
         waveMobilePath.style.strokeDasharray = mobileTotal;
         waveMobilePath.style.strokeDashoffset = mobileTotal;
-      }
+      };
+      initMobileTotal();
 
       const nodes = document.querySelectorAll('.wave-node');
       const steps = document.querySelectorAll('.wave-step');
@@ -4592,10 +4599,13 @@
 
         wavePath.style.strokeDashoffset = total * (1 - p);
 
-        /* Mobile: track section center through viewport — 0 when center at bottom, 1 when center at top */
-        if (waveMobilePath && mobileWrap) {
-          const mr = mobileWrap.getBoundingClientRect();
-          const mp = Math.max(0, Math.min(1, (vh - mr.top - mr.height / 2) / vh));
+        /* Mobile: anchor progress to actual step positions so line fills as each step enters view */
+        if (waveMobilePath && mobileSteps.length) {
+          initMobileTotal();
+          const firstTop = mobileSteps[0].getBoundingClientRect().top;
+          const lastTop = mobileSteps[mobileSteps.length - 1].getBoundingClientRect().top;
+          const triggerY = vh * 0.7;
+          const mp = Math.max(0, Math.min(1, (triggerY - firstTop) / (lastTop - firstTop)));
           waveMobilePath.style.strokeDashoffset = mobileTotal * (1 - mp);
           thresholds.forEach((t, i) => {
             if (mobileSteps[i]) mobileSteps[i].classList.toggle('active', mp >= t);
