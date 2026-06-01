@@ -3052,12 +3052,12 @@
         font-size: 5.5rem;
         font-weight: 900;
         line-height: 1;
-        color: rgba(37, 99, 235, 0.07);
+        color: rgba(37, 99, 235, 0.13);
         user-select: none;
         pointer-events: none;
         z-index: 0;
         left: 0;
-        top: -0.5rem;
+        top: -1.8rem;
       }
 
       /* Steps with icon on right: place number on the right side */
@@ -3796,7 +3796,7 @@
       <source src="screenshots/VideoForComputer.mp4" type="video/mp4">
     </video>
     <video class="video-reel-mobile" autoplay muted loop playsinline preload="metadata" aria-hidden="true"
-      style="width:100%;height:70vh;min-height:380px;max-height:680px;object-fit:cover;">
+      style="width:100%;height:88vh;min-height:480px;max-height:900px;object-fit:cover;">
       <source src="screenshots/VideoForPhone.mp4" type="video/mp4">
     </video>
   </section>
@@ -4592,10 +4592,10 @@
 
         wavePath.style.strokeDashoffset = total * (1 - p);
 
-        /* Mobile uses its own rect so progress fills the full section regardless of height */
+        /* Mobile: track section center through viewport — 0 when center at bottom, 1 when center at top */
         if (waveMobilePath && mobileWrap) {
           const mr = mobileWrap.getBoundingClientRect();
-          const mp = Math.max(0, Math.min(1, (vh * 0.7 - mr.top) / mr.height));
+          const mp = Math.max(0, Math.min(1, (vh - mr.top - mr.height / 2) / vh));
           waveMobilePath.style.strokeDashoffset = mobileTotal * (1 - mp);
           thresholds.forEach((t, i) => {
             if (mobileSteps[i]) mobileSteps[i].classList.toggle('active', mp >= t);
