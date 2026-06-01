@@ -547,6 +547,9 @@
       transform: translateY(-7px) rotate(-45deg);
     }
 
+    .video-reel-desktop { display: block; }
+    .video-reel-mobile  { display: none; }
+
     @media (max-width: 768px) {
       .video-reel-desktop { display: none; }
       .video-reel-mobile  { display: block; }
@@ -557,20 +560,21 @@
 
       .nav-links {
         position: fixed;
-        top: 0;
+        top: 72px;
         left: 0;
         right: 0;
-        background: rgba(4, 9, 26, 0.98);
+        background: rgba(4, 9, 26, 0.97);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        gap: 2.5rem;
-        padding: 6rem 2rem;
-        height: 100vh;
+        justify-content: flex-start;
+        gap: 1.4rem;
+        padding: 1.8rem 2rem;
+        height: auto;
+        border-bottom: 1px solid var(--bdr);
         z-index: 199;
-        transform: translateY(-100%);
+        transform: translateY(-110%);
         transition: transform 0.4s cubic-bezier(.4, 0, .2, 1);
       }
 
@@ -579,31 +583,11 @@
       }
 
       .nav-links a {
-        font-size: 1.25rem;
+        font-size: 1.05rem;
       }
 
       .nav-close {
-        position: fixed;
-        top: 1.2rem;
-        right: 1.2rem;
-        background: none;
-        border: 1px solid var(--bdr);
-        color: var(--muted);
-        font-size: 1.3rem;
-        width: 44px;
-        height: 44px;
-        border-radius: 50%;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: color 0.2s, border-color 0.2s;
-        z-index: 200;
-      }
-
-      .nav-close:hover {
-        color: var(--text);
-        border-color: var(--bdrh);
+        display: none;
       }
     }
 
@@ -3037,9 +3021,24 @@
         display: flex;
         gap: 16px;
         align-items: flex-start;
-        padding-bottom: 2.8rem;
+        padding-bottom: 5rem;
         position: relative;
         z-index: 2;
+        overflow: visible;
+      }
+
+      /* Large decorative step number behind content */
+      .wave-mobile-wm {
+        position: absolute;
+        font-size: 5.5rem;
+        font-weight: 900;
+        line-height: 1;
+        color: rgba(37, 99, 235, 0.07);
+        user-select: none;
+        pointer-events: none;
+        z-index: 0;
+        left: 0;
+        top: -0.5rem;
       }
 
       /* Steps 1 and 3: icon on visual left (row-reverse in RTL = left) */
@@ -3768,11 +3767,11 @@
   <section id="video-reel" aria-label="הדגמה חזותית"
     style="padding:0;margin:0;position:relative;overflow:hidden;background:#02050f;">
     <video class="video-reel-desktop" autoplay muted loop playsinline preload="metadata" aria-hidden="true"
-      style="display:block;width:100%;height:70vh;min-height:380px;max-height:680px;object-fit:cover;">
+      style="width:100%;height:70vh;min-height:380px;max-height:680px;object-fit:cover;">
       <source src="screenshots/VideoForComputer.mp4" type="video/mp4">
     </video>
     <video class="video-reel-mobile" autoplay muted loop playsinline preload="metadata" aria-hidden="true"
-      style="display:none;width:100%;height:70vh;min-height:380px;max-height:680px;object-fit:contain;">
+      style="width:100%;height:70vh;min-height:380px;max-height:680px;object-fit:contain;">
       <source src="screenshots/VideoForPhone.mp4" type="video/mp4">
     </video>
   </section>
@@ -3951,6 +3950,7 @@
           </div>
           <!-- Step 0: icon on visual right (RTL default) -->
           <div class="wave-mobile-step">
+            <span class="wave-mobile-wm" aria-hidden="true">01</span>
             <div class="wave-mobile-icon">💬</div>
             <div class="wave-mobile-content">
               <div class="wave-mobile-title">שיחת ייעוץ חינם</div>
@@ -3960,6 +3960,7 @@
           </div>
           <!-- Step 1: icon on visual left -->
           <div class="wave-mobile-step wave-mobile-step--left">
+            <span class="wave-mobile-wm" aria-hidden="true">02</span>
             <div class="wave-mobile-icon">✍️</div>
             <div class="wave-mobile-content">
               <div class="wave-mobile-title">מבנה וקופי</div>
@@ -3969,6 +3970,7 @@
           </div>
           <!-- Step 2: icon on visual right -->
           <div class="wave-mobile-step">
+            <span class="wave-mobile-wm" aria-hidden="true">03</span>
             <div class="wave-mobile-icon">🎨</div>
             <div class="wave-mobile-content">
               <div class="wave-mobile-title">עיצוב ובנייה</div>
@@ -3978,6 +3980,7 @@
           </div>
           <!-- Step 3: icon on visual left -->
           <div class="wave-mobile-step wave-mobile-step--left">
+            <span class="wave-mobile-wm" aria-hidden="true">04</span>
             <div class="wave-mobile-icon">🚀</div>
             <div class="wave-mobile-content">
               <div class="wave-mobile-title">העלאה לאוויר</div>
@@ -4216,19 +4219,19 @@
       </h2>
       <div class="pricing-grid">
 
-        <!-- Card 1: Chatbots -->
+        <!-- Card 1: Automations & AI Agents (rightmost on desktop) -->
         <div class="pricing-card fade-up">
-          <span class="pricing-icon">💬</span>
-          <div class="pricing-name">צ'אטבוטים</div>
-          <div class="pricing-desc">עונה ללקוחות, מסנן לידים ומתזמן פגישות — 24/7, בלי להיות שם.</div>
+          <span class="pricing-icon">🤖</span>
+          <div class="pricing-name">אוטומציות וסוכני AI</div>
+          <div class="pricing-desc">מערכות חכמות שעובדות בשבילך — מניהול לידים ועד סוכן AI שפועל עצמאית.</div>
           <div class="pricing-divider"></div>
           <ul class="pricing-list">
-            <li><span class="chk">✓</span><span>אפיון ובניית צ'אטבוט מותאם</span></li>
-            <li><span class="chk">✓</span><span>שיחות חכמות עם AI (GPT)</span></li>
-            <li><span class="chk">✓</span><span>חיבור לאתר / וואטסאפ</span></li>
-            <li><span class="chk">✓</span><span>ניתוב לידים ופניות אוטומטי</span></li>
-            <li><span class="chk">✓</span><span>הגדרת תשובות ותסריטים</span></li>
-            <li><span class="chk">✓</span><span>הדרכה + תמיכה לאחר השקה</span></li>
+            <li><span class="chk">✓</span><span>מיפוי תהליכים עסקיים</span></li>
+            <li><span class="chk">✓</span><span>אוטומציות לידים ותקשורת</span></li>
+            <li><span class="chk">✓</span><span>בניית סוכן AI מותאם לעסק</span></li>
+            <li><span class="chk">✓</span><span>אינטגרציות ל-CRM וכלים קיימים</span></li>
+            <li><span class="chk">✓</span><span>אימון, בדיקות ואופטימיזציה</span></li>
+            <li><span class="chk">✓</span><span>תמיכה לאחר השקה</span></li>
           </ul>
           <div class="line-sep" style="margin-top:1.4rem;" aria-hidden="true"></div>
           <a href="#form-section" class="btn-glass" style="margin-top:0.8rem;">
@@ -4258,19 +4261,19 @@
           </a>
         </div>
 
-        <!-- Card 3: Automations & AI Agents -->
+        <!-- Card 3: Chatbots (leftmost on desktop) -->
         <div class="pricing-card fade-up" style="--delay:200ms">
-          <span class="pricing-icon">🤖</span>
-          <div class="pricing-name">אוטומציות וסוכני AI</div>
-          <div class="pricing-desc">מערכות חכמות שעובדות בשבילך — מניהול לידים ועד סוכן AI שפועל עצמאית.</div>
+          <span class="pricing-icon">💬</span>
+          <div class="pricing-name">צ'אטבוטים</div>
+          <div class="pricing-desc">עונה ללקוחות, מסנן לידים ומתזמן פגישות — 24/7, בלי להיות שם.</div>
           <div class="pricing-divider"></div>
           <ul class="pricing-list">
-            <li><span class="chk">✓</span><span>מיפוי תהליכים עסקיים</span></li>
-            <li><span class="chk">✓</span><span>אוטומציות לידים ותקשורת</span></li>
-            <li><span class="chk">✓</span><span>בניית סוכן AI מותאם לעסק</span></li>
-            <li><span class="chk">✓</span><span>אינטגרציות ל-CRM וכלים קיימים</span></li>
-            <li><span class="chk">✓</span><span>אימון, בדיקות ואופטימיזציה</span></li>
-            <li><span class="chk">✓</span><span>תמיכה לאחר השקה</span></li>
+            <li><span class="chk">✓</span><span>אפיון ובניית צ'אטבוט מותאם</span></li>
+            <li><span class="chk">✓</span><span>שיחות חכמות עם AI (GPT)</span></li>
+            <li><span class="chk">✓</span><span>חיבור לאתר / וואטסאפ</span></li>
+            <li><span class="chk">✓</span><span>ניתוב לידים ופניות אוטומטי</span></li>
+            <li><span class="chk">✓</span><span>הגדרת תשובות ותסריטים</span></li>
+            <li><span class="chk">✓</span><span>הדרכה + תמיכה לאחר השקה</span></li>
           </ul>
           <div class="line-sep" style="margin-top:1.4rem;" aria-hidden="true"></div>
           <a href="#form-section" class="btn-glass" style="margin-top:0.8rem;">
@@ -4533,6 +4536,7 @@
 
       /* Mobile S-curve path */
       const waveMobilePath = document.getElementById('waveMobilePath');
+      const mobileWrap = document.querySelector('.wave-tl-mobile');
       let mobileTotal = 0;
       if (waveMobilePath) {
         mobileTotal = waveMobilePath.getTotalLength();
@@ -4552,13 +4556,21 @@
         const p = Math.max(0, Math.min(1, (-rect.top + vh * 0.65) / (rect.height * 0.8)));
 
         wavePath.style.strokeDashoffset = total * (1 - p);
-        if (waveMobilePath) waveMobilePath.style.strokeDashoffset = mobileTotal * (1 - p);
+
+        /* Mobile uses its own rect so progress fills the full section regardless of height */
+        if (waveMobilePath && mobileWrap) {
+          const mr = mobileWrap.getBoundingClientRect();
+          const mp = Math.max(0, Math.min(1, (vh * 0.7 - mr.top) / mr.height));
+          waveMobilePath.style.strokeDashoffset = mobileTotal * (1 - mp);
+          thresholds.forEach((t, i) => {
+            if (mobileSteps[i]) mobileSteps[i].classList.toggle('active', mp >= t);
+          });
+        }
 
         thresholds.forEach((t, i) => {
           const active = p >= t;
           if (nodes[i]) nodes[i].classList.toggle('active', active);
           if (steps[i]) steps[i].classList.toggle('active', active);
-          if (mobileSteps[i]) mobileSteps[i].classList.toggle('active', active);
         });
       };
 
