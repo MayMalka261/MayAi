@@ -4604,10 +4604,11 @@
           initMobileTotal();
           const firstTop = mobileSteps[0].getBoundingClientRect().top;
           const lastTop = mobileSteps[mobileSteps.length - 1].getBoundingClientRect().top;
-          const triggerY = vh * 0.7;
+          const triggerY = vh * 0.65;
           const mp = Math.max(0, Math.min(1, (triggerY - firstTop) / (lastTop - firstTop)));
           waveMobilePath.style.strokeDashoffset = mobileTotal * (1 - mp);
-          thresholds.forEach((t, i) => {
+          const mobileThresholds = [0.03, 0.32, 0.63, 0.97];
+          mobileThresholds.forEach((t, i) => {
             if (mobileSteps[i]) mobileSteps[i].classList.toggle('active', mp >= t);
           });
         }
