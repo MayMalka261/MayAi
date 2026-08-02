@@ -1213,47 +1213,9 @@
       margin-bottom: 20px;
     }
 
-    .about-stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      min-width: 260px;
-    }
-
-    .about-stat {
-      background: var(--sf);
-      border: 1px solid var(--bdr);
-      border-radius: var(--r);
-      padding: 24px 16px;
-      text-align: center;
-      transition: border-color .2s, transform .2s;
-    }
-
-    .about-stat:hover {
-      border-color: var(--bdrh);
-      transform: translateY(-4px);
-    }
-
-    .about-stat-num {
-      font-size: clamp(1.8rem, 3.5vw, 2.4rem);
-      font-weight: 900;
-      line-height: 1;
-      margin-bottom: 8px;
-    }
-
-    .about-stat-label {
-      font-size: 13px;
-      color: var(--muted);
-      font-weight: 500;
-    }
-
     @media (max-width: 860px) {
       .about-split {
         flex-direction: column;
-      }
-
-      .about-stats {
-        width: 100%;
       }
 
       .about-photo {
@@ -4163,24 +4125,6 @@
           <p class="about-body">
             אני לא מוכר לך טכנולוגיה — אני בונה לך תשתית דיגיטלית שעובדת בשבילך גם כשאתה לא. כן, אני בשירות — ועובד. זה לא עיכב אף פרויקט עד היום.
           </p>
-        </div>
-        <div class="about-stats fade-up" data-delay="240">
-          <div class="about-stat">
-            <div class="about-stat-num gradient-text">30+</div>
-            <div class="about-stat-label">פרויקטים</div>
-          </div>
-          <div class="about-stat">
-            <div class="about-stat-num gradient-text">5</div>
-            <div class="about-stat-label">ימי מסירה</div>
-          </div>
-          <div class="about-stat">
-            <div class="about-stat-num gradient-text">24/7</div>
-            <div class="about-stat-label">הדיגיטל עובד בשבילך</div>
-          </div>
-          <div class="about-stat">
-            <div class="about-stat-num gradient-text">2+</div>
-            <div class="about-stat-label">שנות ניסיון</div>
-          </div>
         </div>
       </div>
     </div>
