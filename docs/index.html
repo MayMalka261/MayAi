@@ -1182,6 +1182,26 @@
       margin-top: 48px;
     }
 
+    .about-photo {
+      width: 280px;
+      flex-shrink: 0;
+      border: 1px solid var(--bdr);
+      border-radius: var(--r);
+      overflow: hidden;
+      transition: border-color .2s, transform .2s;
+    }
+
+    .about-photo:hover {
+      border-color: var(--bdrh);
+      transform: translateY(-4px);
+    }
+
+    .about-photo img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
     .about-text {
       flex: 1;
     }
@@ -1234,6 +1254,12 @@
 
       .about-stats {
         width: 100%;
+      }
+
+      .about-photo {
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto;
       }
     }
 
@@ -4124,7 +4150,10 @@
         <span class="gradient-text">בונה דיגיטל שמכניס כסף לעסקים.</span>
       </h2>
       <div class="about-split">
-        <div class="about-text fade-up">
+        <div class="about-photo fade-up">
+          <img src="screenshots/may-malka-picture-blue-bg.jpeg" alt="מאי מלכא — בונה דפי נחיתה, אתרים ואוטומציות לעסקים" width="1440" height="1440" loading="lazy" />
+        </div>
+        <div class="about-text fade-up" data-delay="120">
           <p class="about-body">
             לא התחלתי עם ניסיון. התחלתי מלקוח אחד שנתן לי צ'אנס — ומהדף שבניתי לו שהביא פניות בשבוע הראשון. הבנתי שזה עובד, והמשכתי.
           </p>
@@ -4135,7 +4164,7 @@
             אני לא מוכר לך טכנולוגיה — אני בונה לך תשתית דיגיטלית שעובדת בשבילך גם כשאתה לא. כן, אני בשירות — ועובד. זה לא עיכב אף פרויקט עד היום.
           </p>
         </div>
-        <div class="about-stats fade-up" data-delay="120">
+        <div class="about-stats fade-up" data-delay="240">
           <div class="about-stat">
             <div class="about-stat-num gradient-text">30+</div>
             <div class="about-stat-label">פרויקטים</div>
