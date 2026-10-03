@@ -11,7 +11,10 @@
  *   POST /form  → Google Apps Script (lead form)
  */
 
-const ALLOWED_ORIGIN = 'https://maymalka261.github.io';
+const ALLOWED_ORIGINS = [
+  'https://maymalka261.github.io',
+  'https://mayai-sandy.vercel.app',
+];
 
 // In-memory rate limiter: max 10 requests per IP per 60 seconds
 const rateLimitMap = new Map();
@@ -31,7 +34,7 @@ function isRateLimited(ip) {
 }
 
 function corsHeaders(origin) {
-  const allowed = origin === ALLOWED_ORIGIN ? origin : '';
+  const allowed = ALLOWED_ORIGINS.includes(origin) ? origin : '';
   return {
     'Access-Control-Allow-Origin': allowed,
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
