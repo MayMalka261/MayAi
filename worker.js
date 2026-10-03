@@ -13,6 +13,7 @@
 
 const ALLOWED_ORIGINS = [
   'https://maymalka261.github.io',
+  'https://mayai-il.vercel.app',
   'https://mayai-sandy.vercel.app',
 ];
 
