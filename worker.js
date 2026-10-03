@@ -14,7 +14,6 @@
 const ALLOWED_ORIGINS = [
   'https://maymalka261.github.io',
   'https://mayai-il.vercel.app',
-  'https://mayai-sandy.vercel.app',
 ];
 
 // In-memory rate limiter: max 10 requests per IP per 60 seconds
