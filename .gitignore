@@ -42,3 +42,6 @@ screenshots/services-section.png
 screenshots/solution-section.png
 screenshots/video-in-page.png
 screenshots/video-native.png
+
+# Private files — kept on this computer only, never pushed
+private/
