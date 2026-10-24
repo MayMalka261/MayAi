@@ -20,6 +20,7 @@ const ALLOWED_ORIGINS = [
 const rateLimitMap = new Map();
 const RATE_LIMIT = 10;
 const RATE_WINDOW_MS = 60_000;
+const MAX_BODY_BYTES = 8_192;
 
 function isRateLimited(ip) {
   const now = Date.now();
@@ -40,7 +41,30 @@ function corsHeaders(origin) {
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
     'Access-Control-Max-Age': '86400',
+    'Vary': 'Origin',
+    'X-Content-Type-Options': 'nosniff',
+    'Cache-Control': 'no-store',
   };
+}
+
+// Reads a JSON body only if it is JSON and small enough; returns null otherwise
+async function readJson(request) {
+  const type = request.headers.get('Content-Type') ?? '';
+  if (!type.toLowerCase().startsWith('application/json')) return null;
+  const declared = Number(request.headers.get('Content-Length') ?? 0);
+  if (declared > MAX_BODY_BYTES) return null;
+  const text = await request.text();
+  if (text.length > MAX_BODY_BYTES) return null;
+  try {
+    const body = JSON.parse(text);
+    return body && typeof body === 'object' && !Array.isArray(body) ? body : null;
+  } catch { return null; }
+}
+
+// Strips control characters and blocks spreadsheet formula injection (=, +, -, @)
+function clean(value, max) {
+  const text = (value ?? '').toString().replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '').trim().slice(0, max);
+  return /^[=+\-@\t\r]/.test(text) ? "'" + text : text;
 }
 
 function corsResponse(body, status, origin, extraHeaders = {}) {
@@ -51,8 +75,8 @@ function corsResponse(body, status, origin, extraHeaders = {}) {
 }
 
 async function handleChat(request, env, origin) {
-  let body;
-  try { body = await request.json(); } catch { return corsResponse('Bad request', 400, origin); }
+  const body = await readJson(request);
+  if (!body) return corsResponse('Bad request', 400, origin);
 
   const message = (body.message ?? '').toString().trim().slice(0, 500);
   const sessionId = (body.sessionId ?? '').toString().slice(0, 64);
@@ -72,22 +96,25 @@ async function handleChat(request, env, origin) {
 }
 
 async function handleForm(request, env, origin) {
-  let body;
-  try { body = await request.json(); } catch { return corsResponse('Bad request', 400, origin); }
+  const body = await readJson(request);
+  if (!body) return corsResponse('Bad request', 400, origin);
 
-  const name  = (body.name  ?? '').toString().trim().slice(0, 100);
-  const phone = (body.phone ?? '').toString().trim().slice(0, 20);
-  if (!name || !phone) return corsResponse('Missing required fields', 400, origin);
+  // Honeypot: bots fill the hidden "website" field — pretend success, store nothing
+  if (body.website) return corsResponse('ok', 200, origin);
+
+  const name  = clean(body.name, 100);
+  const phone = (body.phone ?? '').toString().replace(/[^\d+\-() ]/g, '').trim().slice(0, 20);
+  if (!name || phone.replace(/\D/g, '').length < 6) return corsResponse('Missing required fields', 400, origin);
 
   const params = new URLSearchParams({
     name,
     phone,
-    email:     (body.email    ?? '').toString().trim().slice(0, 100),
-    subject:   (body.subject  ?? '').toString().trim().slice(0, 100),
-    problems:  (body.problems ?? '').toString().slice(0, 200),
-    time:      (body.time     ?? '').toString().slice(0, 50),
-    day:       (body.day      ?? '').toString().slice(0, 20),
-    notes:     (body.notes    ?? '').toString().trim().slice(0, 1000),
+    email:     clean(body.email, 100),
+    subject:   clean(body.subject, 100),
+    problems:  clean(body.problems, 200),
+    time:      clean(body.time, 50),
+    day:       clean(body.day, 20),
+    notes:     clean(body.notes, 1000),
     timestamp: new Date().toISOString(),
   });
 
@@ -106,6 +133,9 @@ export default {
     }
 
     if (request.method !== 'POST') return new Response('Method not allowed', { status: 405 });
+
+    // Only the site itself may post — blocks other websites and casual direct abuse
+    if (!ALLOWED_ORIGINS.includes(origin)) return new Response('Forbidden', { status: 403 });
 
     const ip = request.headers.get('CF-Connecting-IP') ?? 'unknown';
     if (isRateLimited(ip)) {
